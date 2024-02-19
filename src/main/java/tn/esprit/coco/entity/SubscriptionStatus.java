@@ -1,2 +1,5 @@
-package tn.esprit.coco.entity;public enum SubscriptionStatus {
+package tn.esprit.coco.entity;
+
+public enum SubscriptionStatus {
+    ACTIF, EXPIRE
 }
