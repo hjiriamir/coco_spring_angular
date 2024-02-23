@@ -12,7 +12,7 @@ import java.io.Serializable;
 @ToString
 @Entity
 @Builder
-public class Chauffeur implements Serializable {
+public class Busdriver implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

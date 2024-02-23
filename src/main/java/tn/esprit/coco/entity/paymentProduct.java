@@ -1,7 +1,6 @@
 package tn.esprit.coco.entity;
 
 import jakarta.persistence.*;
-import jakarta.transaction.Status;
 import lombok.*;
 
 @Getter
@@ -10,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Entity
-public class PaymentProduct {
+public class paymentProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY  )
     private Long idpayment;

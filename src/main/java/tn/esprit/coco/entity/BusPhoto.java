@@ -23,7 +23,7 @@ public class BusPhoto implements Serializable {
     private String cheminAccesFichier;
     private String typePhoto;
 
-
+   
 
 
 }

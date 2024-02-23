@@ -14,7 +14,7 @@ import java.util.List;
 @ToString
 @Entity
 @Builder
-public class Trajet implements Serializable {
+public class Trip implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,17 +28,20 @@ public class Trajet implements Serializable {
     @ManyToOne
     private Bus busAffecte;
 
-    @ManyToOne
-    private Chauffeur chauffeurAffecte;
 
-    @ManyToOne
-    private Photo photoTrajet;
 
-    @ManyToMany
-    private List<Arret> arretsAssocies;
+    @OneToOne
+    private BusPhoto photoTrajet;
 
-    @ManyToOne
-    private Subscription subscription;
+
+
+    @OneToOne
+    private DailyTicket dailyTicket;
+
+    @OneToMany(mappedBy = "trip")
+    private List<TripStop> tripStops;
+
+
 
 
 

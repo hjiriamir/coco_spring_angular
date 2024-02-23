@@ -23,8 +23,7 @@ public class Ride {
     private  float price;
     @OneToMany(mappedBy = "ride")
     private List<Car> cars;
-    @OneToOne(mappedBy = "rideP")
-    private FacebookPost facebokPost;
+
     @ManyToMany
     private List<User> passengers;
     @ManyToOne

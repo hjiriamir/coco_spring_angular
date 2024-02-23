@@ -68,15 +68,12 @@ public class User {
     private List<Product> Products;
     @OneToOne(mappedBy="user")
     private WishList wishlist;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="user")
-    private List<OrderProduct> OrderProducts;
 
 /// hadil
-    @OneToMany (cascade = CascadeType.ALL)
-    private Set<ColCategory> categories;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="user")
-    private Set<Accommodation> Accommodations;
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy="user")
+    private Set<Accommodation> accommodations;
+    @OneToMany(mappedBy ="user")
+    private List<Booking> bookings;
 
 //// ramzi
     @OneToMany(mappedBy = "user")
@@ -84,7 +81,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;
-
+//verifier
     @OneToMany(mappedBy = "user")
     private List<CommentLike> commentLikes;
 
@@ -95,4 +92,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "chatRoom_id"))
     private List<ChatRoom> chatRooms;
 
+    // ghribi
+    @ManyToOne
+    private  Trip trip;
+
+    @OneToOne
+    private Subscription subscription;
+
+    @OneToOne
+    private DailyTicket dailyTicket ;
 }

@@ -13,13 +13,16 @@ import java.time.LocalDate;
 @ToString
 @Entity
 @Builder
-public class TicketQuotidien implements Serializable {
+public class DailyTicket implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
-    private User user;
+    private User user ;
+
+    @OneToOne
+    private Trip trip;
 
 
     private LocalDate dateValidite;

@@ -17,19 +17,13 @@ public class OrderProduct {
     private Long idOrder;
     private int Quantity;
     private float amount;
-    //private Long Buyer_Id;
-    //private  Long Seller_Id;
-    private String Firstname;
-    private String lastname;
     private String address;
     private int postcode;
     private  String City;
     private String notes;
     @OneToOne
-    private PaymentProduct paymentproduct;
-    @ManyToOne
-    User user;
-    @ManyToMany(mappedBy="orderproducts", cascade = CascadeType.ALL)
-    private List<Product> products;
+    private paymentProduct paymentproduct;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="orderproduct")
+    private List<Product> Products;
 
 }

@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -14,7 +13,7 @@ import java.util.List;
 @ToString
 @Entity
 @Builder
-public class   Subscription implements Serializable {
+public class Subscription implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,8 +27,9 @@ public class   Subscription implements Serializable {
     private LocalDate startDate;
 
     private LocalDate endDate;
-    @OneToMany(mappedBy = "subscription")
-    private List<Trajet> includedTrajets;
+
     @Enumerated(value = EnumType.STRING)
     private SubscriptionStatus status;
+
+    private float SubPrice ;
 }

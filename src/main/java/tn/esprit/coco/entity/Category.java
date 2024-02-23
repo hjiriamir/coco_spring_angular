@@ -3,19 +3,22 @@ package tn.esprit.coco.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Set;
 
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 @Entity
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY  )
-    private Long idCategory;
-    private String CategoryName;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long categoryID;
+    private String categoryTitle;
+    private String categoryDescription;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy="category")
-    private List<SubCategory> SubCategorys;
+    private Set<SubCategory> subCategories;
 }

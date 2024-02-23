@@ -2,7 +2,6 @@ package tn.esprit.coco.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.Date;
 import java.util.Set;
 
@@ -25,5 +24,9 @@ public class Booking {
     //pere
     @ManyToMany(cascade = CascadeType.ALL)
     private Set<RoomPayment> roompayments;
+    @ManyToOne
+    private Accommodation accommodations;
+    @ManyToOne
+    private User user;
 
 }

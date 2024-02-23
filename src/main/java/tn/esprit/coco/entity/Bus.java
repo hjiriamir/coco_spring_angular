@@ -2,7 +2,6 @@ package tn.esprit.coco.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.io.Serializable;
 import java.util.List;
@@ -25,14 +24,16 @@ public class Bus implements Serializable {
     private String disponibilite;
     private String coordonneesGPS;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private BusPhoto photoBus;
-
-    @OneToMany(mappedBy = "bus")
-    private List<Chauffeur> chauffeurs;
 
 
+    @OneToMany
+    private List<Busdriver> Busdrivers;
 
+    @OneToMany
+    private List<Trip> Trips;
+
+
+   
 
 
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @ToString
 @Entity
 @Builder
-public class Arret implements Serializable {
+public class Stop implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,5 +22,13 @@ public class Arret implements Serializable {
 
     @OneToMany(mappedBy = "arret")
     private List<TripStop> tripStops;
+
+
+
+
+
+
+   
+
 
 }

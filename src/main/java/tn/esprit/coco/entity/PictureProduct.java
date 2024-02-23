@@ -17,6 +17,7 @@ public class PictureProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY  )
     private Long idpicture;
     private Date dateAdded;
+    private String Format;
     private String Path;
 
 

@@ -23,15 +23,15 @@ public class Product {
     private float weight;
     private float price;
     @ManyToOne
-    SubCategory subcategory;
+    SubCategoryProduct subcategory;
     @ManyToOne
     Product product;
     @ManyToMany(cascade = CascadeType.ALL)
     private List<WishList> wishlists;
     @ManyToOne
     User user;
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<OrderProduct> orderproducts;
+    @ManyToOne
+    OrderProduct orderproduct;
 
 
 

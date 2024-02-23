@@ -22,12 +22,15 @@ public class TripStop implements Serializable {
     private LocalDateTime departureTime;
 
     @ManyToOne
-    private Arret arret;
+    private Stop arret;
 
     @ManyToOne
-    private Trajet trajet;
+    private Trip trip;
 
+    @ManyToOne
+    private Trip trajet;
 
+   
 
 
 }

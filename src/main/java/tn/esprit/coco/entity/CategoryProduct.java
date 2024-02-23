@@ -3,7 +3,6 @@ package tn.esprit.coco.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -12,16 +11,11 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Entity
-public class WishList {
+public class CategoryProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY  )
-    private Long idList;
-
-
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    private List<Product> products;
-
-    @OneToOne
-    private User user;
+    private Long idCategory;
+    private String CategoryName;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="category")
+    private List<SubCategoryProduct> SubCategorys;
 }
