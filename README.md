@@ -4,16 +4,16 @@
 
 The CoCo app is a comprehensive platform designed to enhance the ESPRIT student experience by facilitating carpooling, room sharing, marketplace transactions, and more, all within a single, user-friendly application. This project aims to address common logistical challenges faced by students, such as finding affordable transportation and accommodation, by leveraging a dynamic role-based system that adapts to users' varying needs.
 
-## Features
+## Features 🚀
 
-- **Dynamic Role Assignment**: Users can assume multiple roles (e.g., Driver, Passenger, Host, Roomseeker) based on their activities.
-- **Carpooling**: Offers a platform for students to share rides, reducing travel costs and environmental impact.
-- **Room Sharing**: Facilitates finding and offering accommodation to help students find suitable living arrangements.
-- **Marketplace**: A platform for buying, selling, and renting goods within the student community.
-- **Delivery Services**: Enables users to offer or request delivery services for items bought or sold through the app.
-- **Secure Authentication**: Utilizes JWT for secure login and role-based access control.
+- **Dynamic Role Assignment** 🔄: Users can assume multiple roles based on their activities.
+- **Carpooling** 🚗: Share rides, reducing travel costs and environmental impact.
+- **Room Sharing** 🏠: Find and offer accommodation easily.
+- **Marketplace** 🛒: Buy, sell, and rent goods within the student community.
+- **Delivery Services** 📦: Offer or request delivery services for marketplace transactions.
+- **Secure Authentication** 🔐: Utilizes JWT for secure login and role-based access control.
 
-## Technologies
+## Technologies 💻
 
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=flat-square&logo=java&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=flat-square&logo=spring-boot)
@@ -27,7 +27,7 @@ The CoCo app is a comprehensive platform designed to enhance the ESPRIT student 
 - **Security**: Spring Security, JWT
 - **Frontend**: Angular
 
-## Getting Started
+## Getting Started 🌟
 
 ### Prerequisites
 
