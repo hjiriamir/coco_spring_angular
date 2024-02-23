@@ -39,4 +39,4 @@ The CoCo app is a comprehensive platform designed to enhance the ESPRIT student 
 
 1. **Clone the repository**
 ```sh
-git clone https://github.com/AmalSlimi/coco-spring.git
+git clone https://github.com/AmalSlimi/coco_spring.git
