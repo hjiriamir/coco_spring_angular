@@ -24,7 +24,6 @@ public class PictureProduct {
 
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="product")
-    private List<PictureProduct> PictureProducts;
-
+    @ManyToOne
+    private Product product;
 }

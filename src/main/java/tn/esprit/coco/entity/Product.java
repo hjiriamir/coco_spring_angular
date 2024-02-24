@@ -22,10 +22,11 @@ public class Product {
     private int quantity;
     private float weight;
     private float price;
+
     @ManyToOne
     SubCategoryProduct subcategory;
-    @ManyToOne
-    Product product;
+    //@ManyToOne
+    //Product product;
     @ManyToMany(cascade = CascadeType.ALL)
     private List<WishList> wishlists;
     @ManyToOne
@@ -33,6 +34,8 @@ public class Product {
     @ManyToOne
     OrderProduct orderproduct;
 
+    @OneToMany(mappedBy="product", cascade = CascadeType.ALL)
+    private List<PictureProduct> pictureProducts;
 
 
 
