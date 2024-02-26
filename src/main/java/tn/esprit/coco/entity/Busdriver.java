@@ -16,13 +16,14 @@ public class Busdriver implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nom;
-    private String prenom;
-    private String numeroTelephone;
+    private String name;
+    private String firstName;
+    private String phoneNumber;
     private String email;
-    private String statut;
-    @OneToOne(cascade = CascadeType.ALL)
-    private BusPhoto photoChauffeur;
+    private String status;
+    //@OneToOne(cascade = CascadeType.ALL)
+    //private BusPhoto driverPhoto;
+
     @ManyToOne
     private Bus bus;
 

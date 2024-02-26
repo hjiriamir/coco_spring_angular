@@ -1,6 +1,6 @@
 package tn.esprit.coco.entity;
 
-public enum TypePayment {
+public enum PaymentType {
     CREDIT_CARD,
     CASH
 }

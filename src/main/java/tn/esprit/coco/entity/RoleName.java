@@ -7,7 +7,7 @@ public enum RoleName {
     HOST,
     ROOMSEEKER,
     DELIVERY,
-    BUSDRIVER,
+
 
 
 }

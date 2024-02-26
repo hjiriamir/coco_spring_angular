@@ -17,11 +17,13 @@ public class Stop implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nom;
-    private String coordonneesGPS;
+    private String name;
+    private String GPScoordinates;
 
-    @OneToMany(mappedBy = "arret")
+    @OneToMany(mappedBy = "stop")
     private List<TripStop> tripStops;
+
+
 
 
 

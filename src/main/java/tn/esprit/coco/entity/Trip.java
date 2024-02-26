@@ -19,24 +19,15 @@ public class Trip implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String lieuDepart;
-    private String lieuArrivee;
-    private LocalDateTime heureDepart;
-    private LocalDateTime heureArrivee;
-    private String dureeEstimee;
-    private double tarif;
+    private String departureLocation;
+    private String arrivalLocation;
+    private String estimatedDuration;
+    private double fare;
     @ManyToOne
-    private Bus busAffecte;
-
-
+    private Bus assignedBus;
 
     @OneToOne
-    private BusPhoto photoTrajet;
-
-
-
-    @OneToOne
-    private DailyTicket dailyTicket;
+    private BusPhoto tripPhoto;
 
     @OneToMany(mappedBy = "trip")
     private List<TripStop> tripStops;

@@ -14,7 +14,7 @@ public class paymentProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY  )
     private Long idpayment;
     @Enumerated(EnumType.STRING)
-    private Typepaymentproduct typepaymentproduct;
+    private PaymentMethod typepaymentproduct;
     @Enumerated(EnumType.STRING)
     private Status status;
     private float Total;

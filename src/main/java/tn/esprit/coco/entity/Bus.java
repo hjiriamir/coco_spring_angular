@@ -17,13 +17,12 @@ public class Bus implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String numeroPlaqueImmatriculation;
-    private String marque;
-    private String modele;
-    private int capaciteSieges;
-    private String disponibilite;
-    private String coordonneesGPS;
-
+    private String licensePlateNumber;
+    private String brand;
+    private String model;
+    private int seatingCapacity;
+    private String availability;
+    private String gpsCoordinates;
 
 
     @OneToMany
@@ -31,9 +30,5 @@ public class Bus implements Serializable {
 
     @OneToMany
     private List<Trip> Trips;
-
-
-   
-
 
 }

@@ -22,13 +22,10 @@ public class TripStop implements Serializable {
     private LocalDateTime departureTime;
 
     @ManyToOne
-    private Stop arret;
+    private Stop stop;
 
     @ManyToOne
     private Trip trip;
-
-    @ManyToOne
-    private Trip trajet;
 
    
 

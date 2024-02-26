@@ -17,7 +17,7 @@ public class Payment {
     private float Amount;
     private String PaymentStatus;
     @Enumerated(value = EnumType.STRING)
-    private TypePayment typePayment;
+    private PaymentType typePayment;
     @OneToOne
     private Reservation reservation;
 

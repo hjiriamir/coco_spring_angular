@@ -18,15 +18,13 @@ public class DailyTicket implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private User user ;
-
-    @OneToOne
-    private Trip trip;
-
-
-    private LocalDate dateValidite;
+    private LocalDate validityDate;
     @Enumerated(value = EnumType.STRING)
-    private StatutTicket statut;
+    private TicketStatus status;
+
+    private PaymentMethod paymentMethod;
+
+    @OneToOne
+    private User user;
 
 }

@@ -18,9 +18,6 @@ public class Subscription implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private User user;
-
     @Enumerated(value = EnumType.STRING)
     private DurationPlan durationPlan;
 
@@ -31,5 +28,9 @@ public class Subscription implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private SubscriptionStatus status;
 
-    private float SubPrice ;
+    private float subscriptionPrice;
+    private PaymentMethod subscriptionPaymentMethod;
+
+    @OneToOne
+    private User user;
 }
