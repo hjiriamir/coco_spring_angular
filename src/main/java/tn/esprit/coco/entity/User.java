@@ -28,11 +28,13 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    private String firstName;
-    private String lastName;
+
+    private String username;
     @Column(nullable = false)
     private String password;
-    private String gender;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
     private String address;
     @Column(nullable = false)
     private LocalDate dateOfBirth;
@@ -48,11 +50,8 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
 
-
 //// special amir
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+
     @ManyToMany(mappedBy = "passengers")
     private List<Ride>rides;
     @OneToMany(mappedBy = "driver")
