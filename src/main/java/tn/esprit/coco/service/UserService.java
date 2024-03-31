@@ -2,6 +2,7 @@ package tn.esprit.coco.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import tn.esprit.coco.dto.request.ProfileUpdateRequest;
 import tn.esprit.coco.entity.ERole;
@@ -13,6 +14,7 @@ import tn.esprit.coco.serviceImp.IUserService;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,6 +24,8 @@ public class UserService implements IUserService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     ///////// list of users  (admin) ///////////////////+
@@ -43,19 +47,12 @@ public class UserService implements IUserService {
         }
     }
 
-    ///////////// update  user (admin) /////////////mazelt na9sa
     @Override
-    public User updateUser(Long id, User userDetails) {
-        User user = userRepository.findById(id)
+    public void updateUserRole(String email, Set<Role> newRoles) {
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Error: User not found."));
-
-        user.setUsername(userDetails.getUsername());
-        user.setGender(userDetails.getGender());
-        user.setAddress(userDetails.getAddress());
-        user.setDateOfBirth(userDetails.getDateOfBirth());
-        user.setPictureUrl(userDetails.getPictureUrl());
-
-        return userRepository.save(user);
+        user.setRoles(newRoles);
+        userRepository.save(user);
     }
 
 
@@ -102,5 +99,18 @@ public class UserService implements IUserService {
 
         return userRepository.save(user);
     }
+
+    @Override
+    public boolean changePassword(String email, String oldPassword, String newPassword) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if(userOptional.isPresent() && passwordEncoder.matches(oldPassword, userOptional.get().getPassword())) {
+            User user = userOptional.get();
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
 
 }

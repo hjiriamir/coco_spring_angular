@@ -56,6 +56,7 @@ public class WebSecurityConfig {
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/auth/signup", "/auth/login", "/test/**","/user/**").permitAll()
+                        .requestMatchers("/user/change-password").authenticated()
                         .requestMatchers("/admin/users").hasRole("ADMIN")
 
                         .anyRequest().authenticated()

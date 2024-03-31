@@ -5,9 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.coco.dto.request.ChangePasswordRequest;
 import tn.esprit.coco.dto.request.ProfileUpdateRequest;
 import tn.esprit.coco.dto.response.MessageResponse;
 import tn.esprit.coco.entity.User;
+import tn.esprit.coco.service.EmailService;
 import tn.esprit.coco.service.UserDetailsImpl;
 import tn.esprit.coco.serviceImp.IUserService;
 
@@ -20,6 +22,7 @@ public class UserController {
 
     @Autowired
     IUserService iuserService;
+
 
     @GetMapping("/profile")
     public ResponseEntity<User> getMyProfile(Authentication authentication) {
@@ -38,6 +41,16 @@ public class UserController {
         return ResponseEntity.ok(new MessageResponse("User profile updated successfully"));
     }
 
+    @PostMapping("/change-password")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
+        boolean success = iuserService.changePassword(request.getEmail(), request.getOldPassword(), request.getNewPassword());
 
+        if(success) {
+            return ResponseEntity.ok().body("Password changed successfully");
+        } else {
+            return ResponseEntity.badRequest().body("Invalid email or password");
+        }
+    }
 
 }

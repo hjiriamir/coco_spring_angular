@@ -20,6 +20,7 @@ import tn.esprit.coco.entity.Role;
 import tn.esprit.coco.entity.User;
 import tn.esprit.coco.repository.RoleRepository;
 import tn.esprit.coco.repository.UserRepository;
+import tn.esprit.coco.service.EmailService;
 import tn.esprit.coco.service.UserDetailsImpl;
 import tn.esprit.coco.service.UserService;
 import tn.esprit.coco.serviceImp.IUserService;
@@ -49,6 +50,8 @@ public class AuthController {
     private JwtUtils jwtUtils;
     @Autowired
     IUserService iuserService;
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/auth/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
@@ -123,6 +126,23 @@ public class AuthController {
 
         user.setRoles(roles);
         userRepository.save(user);
+
+////////////////////////// you GOT mail /////////////////////////////////////////
+        String welcomeMessage = String.format(
+                "Hey there, %s! 🌟\n\n" +
+                        "A huge, warm welcome to the CoCo Esprit family! We're absolutely buzzing with excitement to have you join us. It’s time to embark on a spectacular journey filled with endless possibilities, and it all starts now.\n\n" +
+                        "🚀 Kick-off Your Adventure:\n" +
+                        "- Discover and connect! There’s a whole world out there in CoCo Esprit waiting for you.\n" +
+                        "- 💌 Got a question or a cool idea? Jump into our forums or drop us a message. We love hearing from our community!\n\n" +
+                        "🌈 Stay in the Loop:\n" +
+                        "Follow our social media channels to get the latest scoops, tips, and sparkles from CoCo Esprit. Let’s keep the conversation glowing!\n\n" +
+                        "We’re so thrilled to welcome you aboard. Let’s make some magic happen together! ✨\n\n" +
+                        "With all the excitement,\n" +
+                        "Your pals at CoCo Esprit 💖",
+                user.getUsername());
+
+        emailService.sendEmail(user.getEmail(), "Welcome to the CoCo Esprit Adventure!", welcomeMessage);
+
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
@@ -202,12 +222,8 @@ public class AuthController {
         }
     }
 
-///////////////////////admin yaamel update lel users ////////////////////////////
-    @PutMapping("/users/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-        User updatedUser = iuserService.updateUser(id, userDetails);
-        return ResponseEntity.ok(updatedUser);
-    }
+///////////////////////admin yaamel update l role mtaa users ////////////////////////////
+
+
 
 }
