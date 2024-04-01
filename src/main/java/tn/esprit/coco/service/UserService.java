@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import tn.esprit.coco.dto.GenderStatsDTO;
+import tn.esprit.coco.dto.UserRoleStatsDTO;
 import tn.esprit.coco.dto.request.ProfileUpdateRequest;
 import tn.esprit.coco.entity.ERole;
 import tn.esprit.coco.entity.Role;
@@ -110,6 +112,30 @@ public class UserService implements IUserService {
             return true;
         }
         return false;
+    }
+
+    public List<User> searchUsers(String searchTerm) {
+        if (searchTerm == null || searchTerm.isEmpty()) {
+            return userRepository.findAll();
+        } else {
+            return userRepository.searchByTerm(searchTerm);
+        }
+    }
+
+    public List<GenderStatsDTO> getGenderStatistics() {
+        List<Object[]> results = userRepository.countUsersByGender();
+        List<GenderStatsDTO> genderStats = results.stream()
+                .map(result -> new GenderStatsDTO((String) result[0], (Long) result[1]))
+                .collect(Collectors.toList());
+        return genderStats;
+    }
+
+    public List<UserRoleStatsDTO> getUserRoleStatistics() {
+        List<Object[]> results = userRepository.countUsersByRole();
+        List<UserRoleStatsDTO> roleStats = results.stream()
+                .map(result -> new UserRoleStatsDTO((String) result[0], (Long) result[1]))
+                .collect(Collectors.toList());
+        return roleStats;
     }
 
 

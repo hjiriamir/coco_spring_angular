@@ -10,7 +10,10 @@ import org.springframework.stereotype.Component;
 import tn.esprit.coco.service.UserDetailsImpl;
 
 import java.security.Key;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -25,8 +28,13 @@ public class JwtUtils {
         if (authentication.getPrincipal() instanceof UserDetailsImpl) {
             UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
+            List<String> roles = userPrincipal.getAuthorities().stream()
+                    .map(grantedAuthority -> grantedAuthority.getAuthority())
+                    .collect(Collectors.toList());
+
             return Jwts.builder()
-                    .setSubject((userPrincipal.getEmail())) // Assuming getEmail() exists in UserDetailsImpl
+                    .setSubject((userPrincipal.getEmail())) //  getEmail() thabet
+                    .claim("roles", roles)
                     .setIssuedAt(new Date())
                     .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                     .signWith(key(), SignatureAlgorithm.HS256)
@@ -43,6 +51,19 @@ public class JwtUtils {
     public String getEmailFromJwtToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key()).build()
                 .parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public List<String> getRolesFromJwtToken(String token) {
+        try {
+            Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(key()).build().parseClaimsJws(token);
+            List<String> roles = claimsJws.getBody().get("roles", List.class);
+            if (roles != null) {
+                return roles;
+            }
+        } catch (Exception e) {
+            log.error("Error extracting roles from JWT token: {}", e.getMessage());
+        }
+        return Collections.emptyList();
     }
 
     public boolean validateJwtToken(String authToken) {

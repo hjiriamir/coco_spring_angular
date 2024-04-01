@@ -33,6 +33,7 @@ public class UserDetailsImpl implements UserDetails {
     private String gender;
     private String address;
     private LocalDate dateOfBirth;
+    private String phoneNumber;
     private String pictureUrl;
 
     public static UserDetailsImpl build(User user) {
@@ -50,6 +51,7 @@ public class UserDetailsImpl implements UserDetails {
                 .address(user.getAddress())
                 .dateOfBirth(user.getDateOfBirth())
                 .pictureUrl(user.getPictureUrl())
+                .phoneNumber(user.getPhoneNumber())
                 .build();
     }
 

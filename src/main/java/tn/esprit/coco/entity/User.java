@@ -38,6 +38,9 @@ public class User {
     private String address;
     @Column(nullable = false)
     private LocalDate dateOfBirth;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
     private String pictureUrl;
 
 
@@ -48,6 +51,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+
 
 
 //// special amir

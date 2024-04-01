@@ -28,6 +28,7 @@ public class SignupRequest {
     private String address;
     private LocalDate dateOfBirth;
     private String pictureUrl;
+    private String phoneNumber;
     private Set<String> role;
 
 }

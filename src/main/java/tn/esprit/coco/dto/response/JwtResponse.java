@@ -21,6 +21,7 @@ public class JwtResponse {
     private String address;
     private LocalDate dateOfBirth;
     private String pictureUrl;
+    private String phoneNumber;
     private List<String> roles;
 
 

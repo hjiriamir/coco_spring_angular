@@ -18,5 +18,6 @@ public interface IUserService {
 
     User updateUserProfile(String email, ProfileUpdateRequest profileUpdateRequest);
     boolean changePassword(String email, String oldPassword, String newPassword);
+    List<User> searchUsers(String searchTerm);
 
 }

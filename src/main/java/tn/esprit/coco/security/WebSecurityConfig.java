@@ -55,9 +55,9 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/auth/signup", "/auth/login", "/test/**","/user/**").permitAll()
+                        .requestMatchers("/auth/signup", "/auth/login", "/test/**","/user/**","/stats/roles").permitAll()
                         .requestMatchers("/user/change-password").authenticated()
-                        .requestMatchers("/admin/users").hasRole("ADMIN")
+                        .requestMatchers("/admin/users","/admin/search").hasAuthority("ADMIN")
 
                         .anyRequest().authenticated()
                 )

@@ -74,6 +74,7 @@ public class AuthController {
                 .address(signUpRequest.getAddress())
                 .dateOfBirth(signUpRequest.getDateOfBirth())
                 .pictureUrl(signUpRequest.getPictureUrl())
+                .phoneNumber(signUpRequest.getPhoneNumber())
                 .build();
 
         Set<String> strRoles = signUpRequest.getRole();
@@ -167,6 +168,7 @@ public class AuthController {
                 userDetails.getAddress(),
                 userDetails.getDateOfBirth(),
                 userDetails.getPictureUrl(),
+                userDetails.getPhoneNumber(),
                 userDetails.getAuthorities().stream()
                         .map(item -> item.getAuthority())
                         .collect(Collectors.toList())
@@ -206,6 +208,7 @@ public class AuthController {
     }*/
 
     @DeleteMapping("/users/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteUser(@PathVariable Long id, Authentication authentication) {
         String email = ""; // Initialize with an empty string
 
@@ -222,6 +225,13 @@ public class AuthController {
         }
     }
 
+
+    @GetMapping("/admin/search")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<List<User>> searchUsers(@RequestParam(value = "searchTerm", required = false) String searchTerm) {
+        List<User> users = iuserService.searchUsers(searchTerm);
+        return ResponseEntity.ok(users);
+    }
 ///////////////////////admin yaamel update l role mtaa users ////////////////////////////
 
 
