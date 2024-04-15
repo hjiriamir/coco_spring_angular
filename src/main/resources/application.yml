@@ -1,0 +1,4 @@
+twilio:
+  account-sid: AC28d134d193c0800b8671ea649fa0443a
+  auth-token: 16f804347fbb2c2f63bc2e14c765e102
+  phone-number: +13344876705
