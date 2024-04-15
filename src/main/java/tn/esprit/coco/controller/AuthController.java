@@ -150,8 +150,8 @@ public class AuthController {
         emailService.sendEmail(user.getEmail(), "Welcome to the CoCo Esprit Adventure!", welcomeMessage);
 
 
-        SmsRequest smsRequest = new SmsRequest(user.getPhoneNumber(), "Welcome to CoCo Esprit! Your registration is successful.");
-        smsService.sendSms(smsRequest);
+        //SmsRequest smsRequest = new SmsRequest(user.getPhoneNumber(), "Welcome to CoCo Esprit! Your registration is successful.");
+        //smsService.sendSms(smsRequest);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
