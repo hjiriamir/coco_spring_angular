@@ -138,7 +138,19 @@ public class UserService implements IUserService {
                 .collect(Collectors.toList());
         return roleStats;
     }
+////////////sysy///////////
 
 
+
+
+    @Override
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
 
 }

@@ -1,5 +1,6 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,10 +15,11 @@ public class paymentProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY  )
     private Long idpayment;
     @Enumerated(EnumType.STRING)
-    private PaymentMethod typepaymentproduct;
+    private Typepaymentproduct typepaymentproduct;
     @Enumerated(EnumType.STRING)
     private Status status;
     private float Total;
+    @JsonIgnore
     @OneToOne(mappedBy="paymentproduct")
     private OrderProduct orderproduct;
 }

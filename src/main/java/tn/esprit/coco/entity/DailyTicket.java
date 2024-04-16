@@ -1,10 +1,12 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,5 +28,8 @@ public class DailyTicket implements Serializable {
 
     @OneToOne
     private User user;
+    @ManyToMany
+    @JsonIgnore
+    private List<TripStop> tripStops ;
 
 }

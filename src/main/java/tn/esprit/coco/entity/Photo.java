@@ -2,6 +2,7 @@ package tn.esprit.coco.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor

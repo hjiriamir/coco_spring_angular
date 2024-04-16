@@ -17,5 +17,5 @@ public class Security {
     private String sharedData;
     private Boolean isActivated;
     @OneToOne(mappedBy = "security", cascade = CascadeType.ALL, orphanRemoval = true)
-    private User user;
+    private Reservation reservation;
 }

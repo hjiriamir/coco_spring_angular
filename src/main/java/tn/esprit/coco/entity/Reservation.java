@@ -27,4 +27,7 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "ride_id")
     private Ride rideR;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "security_id")
+    private Security security;
 }
