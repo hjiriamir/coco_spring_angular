@@ -13,7 +13,7 @@ import tn.esprit.coco.dto.request.SmsRequest;
 @Service
 
 public class SMSService {
-   /* private final TwilioConfiguration twilioConfiguration;
+    private final TwilioConfiguration twilioConfiguration;
 
     @Autowired
     public SMSService(TwilioConfiguration twilioConfiguration) {
@@ -27,5 +27,5 @@ public class SMSService {
         MessageCreator creator = Message.creator(to, from, message);
         creator.create();
         System.out.println("Send sms {}" + smsRequest);
-    }*/
+    }
 }

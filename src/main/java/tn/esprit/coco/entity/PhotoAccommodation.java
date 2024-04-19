@@ -6,7 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity @NoArgsConstructor @AllArgsConstructor @Data @Builder
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
 public class PhotoAccommodation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 
 public class TwilioInitializer {
-    /*private final TwilioConfiguration twilioConfiguration;
+    private final TwilioConfiguration twilioConfiguration;
 
     @Autowired
     public TwilioInitializer(TwilioConfiguration twilioConfiguration) {
@@ -19,5 +19,5 @@ public class TwilioInitializer {
                 twilioConfiguration.getAuthToken()
         );
         System.out.println("Twilio initialized ... with account sid {}" + twilioConfiguration.getAccountSid());
-    }*/
+    }
 }

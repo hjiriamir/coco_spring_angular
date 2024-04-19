@@ -3,14 +3,12 @@ package tn.esprit.coco.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
-
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 @Getter
 @Setter
-@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class SubCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +19,5 @@ public class SubCategory {
     @ManyToOne
     private Category category;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="subcategory")
-    private Set<Accommodation> accommodations;
+
 }
