@@ -50,6 +50,8 @@ public class UserService implements IUserService {
         }
     }
 
+
+
     @Override
     public void updateUserRole(String email, Set<Role> newRoles) {
         User user = userRepository.findByEmail(email)
@@ -89,6 +91,7 @@ public class UserService implements IUserService {
         user.setAddress(profileUpdateRequest.getAddress());
         user.setDateOfBirth(profileUpdateRequest.getDateOfBirth());
         user.setPictureUrl(profileUpdateRequest.getPictureUrl());
+        user.setProfilePicture(profileUpdateRequest.getProfilePicture());
 
         //
         if (profileUpdateRequest.getRoles() != null && !profileUpdateRequest.getRoles().isEmpty()) {

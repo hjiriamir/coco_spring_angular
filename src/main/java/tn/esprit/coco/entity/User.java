@@ -42,6 +42,8 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
     private String pictureUrl;
+    @OneToOne
+    private ProfilePicture profilePicture;
 
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
@@ -52,6 +54,13 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
+
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Reclamation> Reclamations= new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "responder")
+    private Set<Response> responses = new HashSet<>();
 
 
 //// special amir
