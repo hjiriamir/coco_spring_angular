@@ -1,5 +1,6 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -54,19 +55,22 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//////////////
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private Set<Reclamation> Reclamations= new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "responder")
     private Set<Response> responses = new HashSet<>();
 
 
-//// special amir
+//// special
 
     @ManyToMany(mappedBy = "passengers")
     private List<Ride>rides;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "driver")
     private List<Ride> drives;
     @OneToMany(mappedBy = "passenger")

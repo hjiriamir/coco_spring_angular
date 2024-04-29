@@ -24,6 +24,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
+
 public class WebSecurityConfig {
 
     @Autowired
@@ -59,9 +60,9 @@ public class WebSecurityConfig {
                                 "/reclamations/**","/responses/**",
                                 "/addRide","/addCar","/addImage","/subscriptions/**",
                                 "/Bus/**","/Trip/**",
-                                "/AddProduct").permitAll()
+                                "/AddProduct","/**").permitAll()
                         .requestMatchers("/user/change-password").authenticated()
-                        .requestMatchers("/admin/users/**","/admin/search").hasAuthority("ADMIN")
+                        .requestMatchers("/admin/users/**","/admin/search","reclamations/all/**").hasAuthority("ADMIN")
 
 
                         .anyRequest().authenticated()
@@ -77,7 +78,9 @@ public class WebSecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // Angular's default port
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type","Cache-Control"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
+
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

@@ -43,6 +43,7 @@ public class Ride {
     private List<Favorite>favorites;
 
 
+//////////////////////
     @OneToMany(mappedBy = "ride", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<Reclamation> reclamations = new HashSet<>();
 }

@@ -1,5 +1,6 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,7 +26,9 @@ public class Reclamation {
     @Enumerated(EnumType.STRING)
     private StateReclamation state;
 
-    @ManyToOne
+    ////////////////
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private User user;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "reclamation")

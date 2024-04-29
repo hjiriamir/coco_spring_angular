@@ -17,8 +17,13 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReclamationDto {
+    private Long id;
     private String title;
     private String description;
-    //private TypeReclamation type;
+    private TypeReclamation type;
+    private Date date;
+    private StateReclamation state;
+    private Long userId;
+    private Long rideId;
 
 }

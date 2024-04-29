@@ -1,5 +1,6 @@
 package tn.esprit.coco.service;
 
+import com.twilio.base.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +15,7 @@ import tn.esprit.coco.repository.RoleRepository;
 import tn.esprit.coco.repository.UserRepository;
 import tn.esprit.coco.serviceImp.IUserService;
 
+import java.awt.print.Pageable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +37,8 @@ public class UserService implements IUserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+
 
 
     ///////////// delete  user (admin) /////////////+
