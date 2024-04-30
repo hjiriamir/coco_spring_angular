@@ -22,6 +22,7 @@ public class Response {
     private Reclamation reclamation;
 
    @ManyToOne
+   @JsonIgnore
    @JoinColumn(name = "responder_id")
    private User responder;
 

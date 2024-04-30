@@ -27,7 +27,7 @@ public class ReclamationController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addReclamation(@RequestParam Long rideId, @RequestBody ReclamationDto reclamationDto) {
-        reclamationService.addReclamation(rideId, reclamationDto.getTitle(), reclamationDto.getDescription());
+        reclamationService.addReclamation(rideId, reclamationDto.getTitle(), reclamationDto.getDescription(), reclamationDto.getType());
         return ResponseEntity.ok("Reclamation added successfully");
     }
 
@@ -53,13 +53,13 @@ public class ReclamationController {
     }
 
     @PutMapping("/{reclamationId}/state")
-    //@PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateReclamationState(@PathVariable Long reclamationId, @RequestParam("state") StateReclamation state) {
         try {
-            Reclamation updatedReclamation = reclamationService.updateReclamationState(reclamationId, state);
+            ReclamationDto updatedReclamation = reclamationService.updateReclamationState(reclamationId, state);
             return ResponseEntity.ok(updatedReclamation);
-        } catch (RuntimeException e) { // Catch any runtime exceptions including IllegalStateException
-            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
@@ -78,6 +78,16 @@ public class ReclamationController {
             return ResponseEntity.ok(reclamations);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @GetMapping("/{reclamationId}")
+    public ResponseEntity<ReclamationDto> getReclamationById(@PathVariable Long reclamationId) {
+        try {
+            ReclamationDto reclamation = reclamationService.getReclamationById(reclamationId);
+            return ResponseEntity.ok(reclamation);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 

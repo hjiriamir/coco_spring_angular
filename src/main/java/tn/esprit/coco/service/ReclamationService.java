@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 import tn.esprit.coco.dto.ReclamationDto;
 import tn.esprit.coco.entity.*;
 import tn.esprit.coco.repository.ReclamationRepository;
+import tn.esprit.coco.repository.ResponseRepository;
 import tn.esprit.coco.repository.RideRepository;
 import tn.esprit.coco.repository.UserRepository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,13 +26,13 @@ public class ReclamationService {
     private RideRepository rideRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private ResponseRepository responseRepository;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
     @Transactional
-    public Reclamation addReclamation(Long rideId, String title, String description) {
+    public Reclamation addReclamation(Long rideId, String title, String description, TypeReclamation type) {
         User currentUser = userDetailsService.getCurrentUser();
         Ride ride = rideRepository.findById(rideId)
                 .orElseThrow(() -> new RuntimeException("Ride not found with id: " + rideId));
@@ -38,9 +40,11 @@ public class ReclamationService {
         Reclamation reclamation = new Reclamation();
         reclamation.setTitle(title);
         reclamation.setDescription(description);
+        reclamation.setType(type);
         reclamation.setUser(currentUser);
         reclamation.setRide(ride);
         reclamation.setState(StateReclamation.PENDING);
+        reclamation.setDate(new Date());
 
 
         return reclamationRepository.save(reclamation);
@@ -66,6 +70,7 @@ public class ReclamationService {
 
         reclamation.setTitle(reclamationDto.getTitle());
         reclamation.setDescription(reclamationDto.getDescription());
+
         return convertToDto(reclamationRepository.save(reclamation));
     }
 
@@ -83,20 +88,22 @@ public class ReclamationService {
 
 
     @Transactional
-    public Reclamation updateReclamationState(Long reclamationId, StateReclamation newState) {
+    public ReclamationDto updateReclamationState(Long reclamationId, StateReclamation newState) {
         Reclamation reclamation = reclamationRepository.findById(reclamationId)
                 .orElseThrow(() -> new RuntimeException("Reclamation not found with id: " + reclamationId));
 
-        if (reclamation.getState() == StateReclamation.PENDING) {
-            reclamation.setState(newState);
-            return reclamationRepository.save(reclamation);
-        } else {
-            throw new IllegalStateException("Reclamation cannot be updated as it is not in PENDING state.");
+        if (reclamation.getState() == StateReclamation.CLOSED) {
+            throw new IllegalStateException("Reclamation is closed and cannot be updated.");
         }
+
+        reclamation.setState(newState);
+        reclamation = reclamationRepository.save(reclamation);
+        return convertToDto(reclamation);
     }
 
 
-    //@PreAuthorize("hasRole('ADMIN')")
+
+
 
     public List<ReclamationDto> getAllReclamations() {
         List<Reclamation> reclamations = reclamationRepository.findAll();
@@ -119,32 +126,18 @@ public class ReclamationService {
     }
 
 
-    /*
 
-    // ken kif tebda pending
-    public Reclamation updateReclamation(Long id, Reclamation newReclamationData) {
-        Reclamation reclamation = reclamationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reclamation not found"));
-
-        if (reclamation.getState() == StateReclamation.PENDING) {
-            reclamation.setTitle(newReclamationData.getTitle());
-            reclamation.setDescription(newReclamationData.getDescription());
-            reclamation.setType(newReclamationData.getType());
-            reclamation.setDate(newReclamationData.getDate());
-            // reclamation.setState(newReclamationData.getState());
-            return reclamationRepository.save(reclamation);
-        } else {
-            throw new IllegalStateException("Reclamation cannot be updated as it is not in PENDING state.");
-        }
+    public ReclamationDto getReclamationById(Long reclamationId) {
+        Reclamation reclamation = reclamationRepository.findById(reclamationId)
+                .orElseThrow(() -> new RuntimeException("Reclamation not found with id: " + reclamationId));
+        return convertToDto(reclamation);
     }
 
 
 
 
-    public List<Reclamation> getReclamationsForCurrentUser(String userEmail) {
-        User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + userEmail));
-        return reclamationRepository.findByUser(user);
-    }*/
+
+
+
 
 }

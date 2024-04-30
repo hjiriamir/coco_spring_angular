@@ -1,6 +1,7 @@
 package tn.esprit.coco.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -57,6 +58,8 @@ public class User {
 
 //////////////
     @JsonIgnore
+    @JsonManagedReference
+
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private Set<Reclamation> Reclamations= new HashSet<>();
 
@@ -82,6 +85,7 @@ public class User {
     private List<Favorite>favorites;
 //// syrine
     @OneToMany(cascade = CascadeType.ALL, mappedBy="user")
+    @JsonIgnore
     private List<Product> Products;
     @OneToOne(mappedBy="user")
     private WishList wishlist;

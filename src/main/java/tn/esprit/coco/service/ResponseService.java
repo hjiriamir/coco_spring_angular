@@ -1,7 +1,9 @@
 package tn.esprit.coco.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tn.esprit.coco.dto.ResponseDto;
 import tn.esprit.coco.entity.ERole;
 import tn.esprit.coco.entity.Reclamation;
 import tn.esprit.coco.entity.Response;
@@ -10,11 +12,13 @@ import tn.esprit.coco.repository.ReclamationRepository;
 import tn.esprit.coco.repository.ResponseRepository;
 import tn.esprit.coco.repository.UserRepository;
 
+import java.nio.file.attribute.UserPrincipal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ResponseService {
-    /*@Autowired
+    @Autowired
     private ResponseRepository responseRepository;
 
     @Autowired
@@ -22,39 +26,45 @@ public class ResponseService {
     @Autowired
     private UserRepository userRepository;
 
-    public Response addResponse(Long reclamationId, String message, String userEmail) {
-        User admin = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
 
-        if (admin.getRoles().stream().noneMatch(role -> role.getName().equals(ERole.ADMIN))) {
-            throw new IllegalStateException("Only users with the admin role can respond to reclamations");
-        }
-
+    public Response addResponse(Long reclamationId, String message) {
+        User admin = userDetailsService.getCurrentUser();
         Reclamation reclamation = reclamationRepository.findById(reclamationId)
-                .orElseThrow(() -> new IllegalArgumentException("Reclamation not found"));
+                .orElseThrow(() -> new RuntimeException("Reclamation not found with id: " + reclamationId));
 
         Response response = new Response();
         response.setMessage(message);
-        response.setAdmin(admin);
         response.setReclamation(reclamation);
-        response.setRecipient(reclamation.getUser()); // Set the user who made the reclamation as the recipient of the response
-
+        response.setResponder(admin);
         return responseRepository.save(response);
+    }
+
+    public List<ResponseDto> getAllResponses() {
+        return responseRepository.findAll().stream().map(response -> new ResponseDto(
+                response.getId(),
+                response.getMessage(),
+                response.getReclamation().getTitle(),
+                response.getReclamation().getUser().getUsername()
+        )).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void deleteResponse(Long responseId) {
+        Response response = responseRepository.findById(responseId)
+                .orElseThrow(() -> new RuntimeException("Response not found with id: " + responseId));
+        responseRepository.delete(response);
     }
 
 
 
 
+    public List<Response> getResponsesForReclamation(Long reclamationId) {
+        return responseRepository.findByReclamationId(reclamationId);
+    }
 
-    public List<Response> getAllResponses(String userEmail) {
-        User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        if (!user.getRoles().stream().anyMatch(role -> role.getName().equals(ERole.ADMIN))) {
-            throw new IllegalStateException("Only admin users can view all responses");
-        }
 
-        return responseRepository.findAll();
-    }*/
 
 }

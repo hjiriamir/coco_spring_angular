@@ -62,7 +62,7 @@ public class WebSecurityConfig {
                                 "/Bus/**","/Trip/**",
                                 "/AddProduct","/**").permitAll()
                         .requestMatchers("/user/change-password").authenticated()
-                        .requestMatchers("/admin/users/**","/admin/search","reclamations/all/**").hasAuthority("ADMIN")
+                        .requestMatchers("/admin/users/**","/admin/search","reclamations/**","/responses/**").hasAuthority("ADMIN")
 
 
                         .anyRequest().authenticated()
