@@ -1,9 +1,9 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -18,9 +18,15 @@ public class Ride {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long RideID;
     private String StartLocation;
-    private Date DepartureDate;
-    private Date ArrivalDate;
-    private  float price;
+    private String ArrivalAddress;
+    private String DepartureDate;
+    private String time;
+    private  int price;
+    private long PlaceDisponible;
+    private boolean Smoking_Vehicle;
+    private String preference;
+    private boolean AvoidTolls;
+    @JsonIgnore
     @OneToMany(mappedBy = "ride")
     private List<Car> cars;
 

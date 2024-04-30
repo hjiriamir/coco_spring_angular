@@ -1,5 +1,6 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,9 +21,11 @@ public class Car {
     private Boolean Comfort;
 
     @ManyToOne
-    @JoinColumn(name = "rideId")
+    @JoinColumn(name = "ride_id")
     private Ride ride;
-    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    @OneToMany(mappedBy = "car")
     private List<Image> images;
+
 }
 

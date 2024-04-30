@@ -1,5 +1,6 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,7 +16,8 @@ public class CategoryProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY  )
     private Long idCategory;
-    private String CategoryName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy="category")
+    private String categoryName;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy="category", orphanRemoval = true)
     private List<SubCategoryProduct> SubCategorys;
 }

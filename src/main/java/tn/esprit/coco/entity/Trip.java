@@ -1,5 +1,6 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,20 +18,25 @@ import java.util.List;
 public class Trip implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idTrip;
 
     private String departureLocation;
     private String arrivalLocation;
     private String estimatedDuration;
     private double fare;
     @ManyToOne
+    @JsonIgnore
     private Bus assignedBus;
 
-    @OneToOne
-    private BusPhoto tripPhoto;
+    /*@OneToOne
+    @JsonIgnore
+    private BusPhoto tripPhoto;*/
 
     @OneToMany(mappedBy = "trip")
+    @JsonIgnore
     private List<TripStop> tripStops;
+
+
 
 
 

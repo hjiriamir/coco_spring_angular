@@ -1,7 +1,9 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.util.Date;
 import java.util.Set;
 
@@ -11,6 +13,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Builder
 public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +26,13 @@ public class Booking {
 
     //pere
     @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<RoomPayment> roompayments;
     @ManyToOne
+    @JsonIgnore
     private Accommodation accommodations;
     @ManyToOne
+    @JsonIgnore
     private User user;
 
 }

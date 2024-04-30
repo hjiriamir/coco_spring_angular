@@ -20,4 +20,9 @@ public interface IUserService {
     boolean changePassword(String email, String oldPassword, String newPassword);
     List<User> searchUsers(String searchTerm);
 
+    User createUser(User user);
+
+    User getUserById(Long id);
+
+
 }

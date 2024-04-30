@@ -53,4 +53,22 @@ public class UserController {
         }
     }
 
+    @GetMapping("getuserid/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User user = iuserService.getUserById(id);
+        return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User newUser = iuserService.createUser(user);
+        return ResponseEntity.ok(newUser);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<User>> getAllUsers() {
+        List<User> users = iuserService.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
+
 }

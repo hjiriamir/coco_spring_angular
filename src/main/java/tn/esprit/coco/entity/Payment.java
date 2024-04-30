@@ -12,7 +12,7 @@ import lombok.*;
 @Entity
 public class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long PaymentID;
     private float Amount;
     private String PaymentStatus;

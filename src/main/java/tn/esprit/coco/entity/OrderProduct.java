@@ -1,5 +1,6 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class OrderProduct {
     private String notes;
     @OneToOne
     private paymentProduct paymentproduct;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy="orderproduct")
     private List<Product> Products;
 

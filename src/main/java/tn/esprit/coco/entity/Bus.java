@@ -1,5 +1,6 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,9 +27,11 @@ public class Bus implements Serializable {
 
 
     @OneToMany
+    @JsonIgnore
     private List<Busdriver> Busdrivers;
 
     @OneToMany
+    @JsonIgnore
     private List<Trip> Trips;
 
 }

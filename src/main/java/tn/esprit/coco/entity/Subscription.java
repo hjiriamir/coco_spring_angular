@@ -1,5 +1,6 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,19 +19,27 @@ public class Subscription implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(value = EnumType.STRING)
-    private DurationPlan durationPlan;
+    //@Enumerated(value = EnumType.STRING)
+    //private DurationPlan durationPlan;
 
-    private LocalDate startDate;
+    //private LocalDate startDate;
 
-    private LocalDate endDate;
+    //private LocalDate endDate;
 
     @Enumerated(value = EnumType.STRING)
     private SubscriptionStatus status;
 
-    private float subscriptionPrice;
+    private double subscriptionPrice;
+
+    private int remainingTrips;
+    private int TripStops ;
+
     private PaymentMethod subscriptionPaymentMethod;
 
+    private String qrCodeData;
+     private  String qrCodeImageUrl;
+
     @OneToOne
+    @JsonIgnore
     private User user;
 }

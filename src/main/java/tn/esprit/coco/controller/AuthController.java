@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.coco.dto.request.LoginRequest;
 import tn.esprit.coco.dto.request.RoleUpdateRequest;
 import tn.esprit.coco.dto.request.SignupRequest;
+import tn.esprit.coco.dto.request.SmsRequest;
 import tn.esprit.coco.dto.response.JwtResponse;
 import tn.esprit.coco.dto.response.MessageResponse;
 import tn.esprit.coco.entity.ERole;
@@ -21,6 +22,7 @@ import tn.esprit.coco.entity.User;
 import tn.esprit.coco.repository.RoleRepository;
 import tn.esprit.coco.repository.UserRepository;
 import tn.esprit.coco.service.EmailService;
+import tn.esprit.coco.service.SMSService;
 import tn.esprit.coco.service.UserDetailsImpl;
 import tn.esprit.coco.service.UserService;
 import tn.esprit.coco.serviceImp.IUserService;
@@ -52,6 +54,9 @@ public class AuthController {
     IUserService iuserService;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private SMSService smsService;
+
 
     @PostMapping("/auth/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
@@ -144,6 +149,9 @@ public class AuthController {
 
         emailService.sendEmail(user.getEmail(), "Welcome to the CoCo Esprit Adventure!", welcomeMessage);
 
+
+        //SmsRequest smsRequest = new SmsRequest(user.getPhoneNumber(), "Welcome to CoCo Esprit! Your registration is successful.");
+        //smsService.sendSms(smsRequest);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
