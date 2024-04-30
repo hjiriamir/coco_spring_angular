@@ -19,9 +19,9 @@ public class SubscriptionController {
     @Autowired
     private SubscriptionServicesImpl subscriptionService;
 
-    @PostMapping("/{userId}/add")
-    public ResponseEntity<?> addSubscription(@PathVariable Long userId, @RequestBody Subscription subscription) {
-        Subscription addedSubscription = subscriptionService.addSubscription(userId, subscription);
+    @PostMapping("/add")
+    public ResponseEntity<?> addSubscription( @RequestBody Subscription subscription) {
+        Subscription addedSubscription = subscriptionService.addSubscription( subscription);
         if (addedSubscription != null) {
             return ResponseEntity.ok(addedSubscription);
         } else {

@@ -14,6 +14,7 @@ import tn.esprit.coco.repository.SubscriptionRepository;
 import tn.esprit.coco.repository.UserRepository;
 import tn.esprit.coco.service.IStopServices;
 import tn.esprit.coco.service.ISubscriptionServices;
+import tn.esprit.coco.service.UserDetailsServiceImpl;
 
 import java.util.List;
 
@@ -26,12 +27,15 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
     private SubscriptionRepository subscriptionRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
 
 
     @Override
-    public Subscription addSubscription(Long userId, Subscription subscription) {
+    public Subscription addSubscription( Subscription subscription) {
 
-        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        User user = userDetailsService.getCurrentUser();
 
         subscription.setStatus(SubscriptionStatus.EXPIRED);
         subscription.setUser(user);
@@ -77,8 +81,9 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
 
     @Override
     public Subscription getSubscription(Long userId) {
+        User user = userDetailsService.getCurrentUser();
         // Assuming that the subscription is associated with the user ID in the database
-        return subscriptionRepository.findByUserId(userId);
+        return subscriptionRepository.findByUserId(user.getId());
     }
 
 
