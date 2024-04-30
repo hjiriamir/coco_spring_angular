@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import tn.esprit.coco.entity.ProfilePicture;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -29,6 +30,7 @@ public class SignupRequest {
     private LocalDate dateOfBirth;
     private String pictureUrl;
     private String phoneNumber;
+    private ProfilePicture profilePicture;
     private Set<String> role;
 
 }

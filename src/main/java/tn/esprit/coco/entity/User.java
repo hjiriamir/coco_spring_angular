@@ -1,5 +1,7 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -42,6 +44,8 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
     private String pictureUrl;
+    @OneToOne
+    private ProfilePicture profilePicture;
 
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
@@ -52,12 +56,24 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
+//////////////
+    @JsonIgnore
+    @JsonManagedReference
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private Set<Reclamation> Reclamations= new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "responder")
+    private Set<Response> responses = new HashSet<>();
 
 
-//// special amir
+//// special
 
     @ManyToMany(mappedBy = "passengers")
     private List<Ride>rides;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "driver")
     private List<Ride> drives;
     @OneToMany(mappedBy = "passenger")
@@ -69,6 +85,7 @@ public class User {
     private List<Favorite>favorites;
 //// syrine
     @OneToMany(cascade = CascadeType.ALL, mappedBy="user")
+    @JsonIgnore
     private List<Product> Products;
     @OneToOne(mappedBy="user")
     private WishList wishlist;

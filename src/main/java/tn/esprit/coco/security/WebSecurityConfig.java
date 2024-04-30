@@ -24,6 +24,7 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
+
 public class WebSecurityConfig {
 
     @Autowired
@@ -55,8 +56,18 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
                 .authorizeHttpRequests((authz) -> authz
+
+                        .requestMatchers("/auth/signup", "/auth/login", "/test/**","/user/**", "/stats/**","/profile-picture/**",
+                                "/reclamations/**","/responses/**",
+                                "/addRide","/addCar","/addImage","/subscriptions/**",
+                                "/Bus/**","/Trip/**",
+                                "/AddProduct","/**").permitAll()
+                        .requestMatchers("/user/change-password").authenticated()
+                        .requestMatchers("/admin/users/**","/admin/search","reclamations/**","/responses/**").hasAuthority("ADMIN")
+
                         .requestMatchers( "/**").permitAll()
                         .requestMatchers("/user/change-password").authenticated()
+
 
 
                         .anyRequest().authenticated()
@@ -72,7 +83,9 @@ public class WebSecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // Angular's default port
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type","Cache-Control"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
+
         configuration.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
