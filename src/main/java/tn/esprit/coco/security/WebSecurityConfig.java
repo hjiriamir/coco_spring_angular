@@ -57,6 +57,9 @@ public class WebSecurityConfig {
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
                 .authorizeHttpRequests((authz) -> authz
 
+                        .requestMatchers("/auth/signup", "/auth/login", "/test/**","/user/**","/stats/**","/addRide","/addCar","/addImage","/subscriptions/**","/Bus/**","/Trip/**","/AddProduct","/getAllRides").permitAll()
+
+
                         .requestMatchers("/auth/signup", "/auth/login", "/test/**","/user/**", "/stats/**","/profile-picture/**",
                                 "/reclamations/**","/responses/**",
                                 "/addRide","/addCar","/addImage","/subscriptions/**",
@@ -66,6 +69,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/admin/users/**","/admin/search","reclamations/**","/responses/**").hasAuthority("ADMIN")
 
                         .requestMatchers( "/**").permitAll()
+
                         .requestMatchers("/user/change-password").authenticated()
 
 
