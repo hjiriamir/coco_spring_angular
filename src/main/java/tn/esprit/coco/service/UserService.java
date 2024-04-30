@@ -8,8 +8,10 @@ import tn.esprit.coco.dto.GenderStatsDTO;
 import tn.esprit.coco.dto.UserRoleStatsDTO;
 import tn.esprit.coco.dto.request.ProfileUpdateRequest;
 import tn.esprit.coco.entity.ERole;
+import tn.esprit.coco.entity.OrderProduct;
 import tn.esprit.coco.entity.Role;
 import tn.esprit.coco.entity.User;
+import tn.esprit.coco.repository.OrderProductRepository;
 import tn.esprit.coco.repository.RoleRepository;
 import tn.esprit.coco.repository.UserRepository;
 import tn.esprit.coco.serviceImp.IUserService;
@@ -30,12 +32,22 @@ public class UserService implements IUserService {
     private PasswordEncoder passwordEncoder;
 
 
+   /* @Autowired
+    private OrderProductRepository orderProductRepository;*/
+
 
     ///////// list of users  (admin) ///////////////////+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    /*OrderProduct order = new OrderProduct();
+    order.setAmount(0L);
+    order.setTotalAmount(0L);
+    order.setDiscount(0L);
+    order.setUser(0L);
+    order.setOrderStatus(OrderStatus.Pending);
+    orderProductRepository.save(order);*/
 
     ///////////// delete  user (admin) /////////////+
 

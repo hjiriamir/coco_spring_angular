@@ -1,5 +1,7 @@
 package tn.esprit.coco.serviceImp;
 
+import org.springframework.http.ResponseEntity;
+import tn.esprit.coco.dto.AddProductInCartDto;
 import tn.esprit.coco.entity.*;
 
 import java.util.List;
@@ -27,13 +29,13 @@ public interface MarketPlaceImpl {
     void deletePictureProduct(Long idpicture);
     List<PictureProduct> getAllPictureProducts();
     PictureProduct getPictureProductById(Long idpicture);*/
-     List<PictureProduct> list();
-     void save(List<PictureProduct> pictureProducts) ;
+    List<PictureProduct> list();
+    void save(List<PictureProduct> pictureProducts) ;
 
-        Optional<PictureProduct> getOne(Long idpicture);
+    Optional<PictureProduct> getOne(Long idpicture);
     void save(PictureProduct pictureProduct);
-     void delete (Long idpicture);
-     boolean exists(Long idpicture);
+    void delete (Long idpicture);
+    boolean exists(Long idpicture);
     public PictureProduct getLastImage();
     void assignProductPictureToProduct(Long idProduct, Long idpicture) ;
     Long getLastProductId();
@@ -48,27 +50,27 @@ public interface MarketPlaceImpl {
     List<Product> getAllProducts();
     Product getProductById(Long idProduct);
     ////ASSIGNPRODUCTTOSUBCATEGORY
-     void assignProductToSubCategory(Long idProduct, Long idSubCategory);
+    void assignProductToSubCategory(Long idProduct, Long idSubCategory);
     List<Product> getAllProductsSortedByPriceAsc();
 
     List<Product> getProductsSortedByPriceDesc();
     //void addToFavorites(User user, Product product);
     void addToFavorites(Product product);
-   // void removeFromFavorites(User user, Product product);
-   void removeFromFavorites(Product product);
+    // void removeFromFavorites(User user, Product product);
+    void removeFromFavorites(Product product);
     List<Product> getUserFavorites(User user);
     boolean isProductInFavorites(Product product);
 
 
-        //////////MODULE2
+    //////////MODULE2
 
     /////////ORDER
-
-    OrderProduct addOrderProduct(OrderProduct orderProduct);
-    OrderProduct updateOrderProduct(Long idOrder, OrderProduct orderProduct);
-    void deleteOrderProduct(Long idOrder);
-    List<OrderProduct> getAllOrderProducts();
-    OrderProduct getOrderProductById(Long idOrder);
+    ResponseEntity<?> addProductToCart(AddProductInCartDto addProductInCartDto);
+    /* OrderProduct addOrderProduct(OrderProduct orderProduct);
+     OrderProduct updateOrderProduct(Long idOrder, OrderProduct orderProduct);
+     void deleteOrderProduct(Long idOrder);
+     List<OrderProduct> getAllOrderProducts();
+     OrderProduct getOrderProductById(Long idOrder);*/
     //////WISHLIST
     WishList addWishList(WishList wishList);
     WishList updateWishList(Long idOrder, WishList wishList);
