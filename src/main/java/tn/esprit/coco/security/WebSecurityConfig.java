@@ -57,13 +57,14 @@ public class WebSecurityConfig {
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
                 .authorizeHttpRequests((authz) -> authz
 
-                        .requestMatchers("/auth/signup", "/auth/login", "/test/**","/user/**","/stats/**","/addRide","/addCar","/addImage","/subscriptions/**","/Bus/**","/Trip/**","/AddProduct","/getAllRides").permitAll()
 
+                        .requestMatchers("/auth/signup", "/auth/login", "/test/**","/user/**","/stats/**","/addRide","/addCar","/addImage","/subscriptions/**","/Bus/**","/Trip/**","/AddProduct","/getAllRides").permitAll()
 
                         .requestMatchers("/auth/signup", "/auth/login", "/test/**","/user/**", "/stats/**","/profile-picture/**",
                                 "/reclamations/**","/responses/**",
                                 "/addRide","/addCar","/addImage","/subscriptions/**",
                                 "/Bus/**","/Trip/**",
+
                                 "/AddProduct","/**").permitAll()
                         .requestMatchers("/user/change-password").authenticated()
                         .requestMatchers("/admin/users/**","/admin/search","reclamations/**","/responses/**").hasAuthority("ADMIN")
@@ -71,6 +72,10 @@ public class WebSecurityConfig {
                         .requestMatchers( "/**").permitAll()
 
                         .requestMatchers("/user/change-password").authenticated()
+
+                                "/AddProduct","/Product","/**").permitAll()
+                        .requestMatchers("/user/change-password").authenticated()
+                        .requestMatchers("/admin/users/**","/admin/search","reclamations/all/**").hasAuthority("ADMIN")
 
 
 

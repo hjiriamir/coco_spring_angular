@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import tn.esprit.coco.dto.AddProductInCartDto;
 import tn.esprit.coco.entity.*;
 import tn.esprit.coco.service.CloudinaryService;
 import tn.esprit.coco.service.ImageUploadImpl;
@@ -394,8 +395,8 @@ public class MarketPlaceController {
         List<PictureProduct> pictureProducts = marketPlaceService.getAllPictureProducts();
         return new ResponseEntity<>(pictureProducts, HttpStatus.OK);
     }*/
-    /////ORDER
-    @PostMapping("/Order")
+    /////ORDER CRUD NRML
+   /* @PostMapping("/Order")
     public ResponseEntity<OrderProduct> addOrderProduct(@RequestBody OrderProduct orderProduct) {
         OrderProduct addedOrderProduct = marketPlaceService.addOrderProduct(orderProduct);
         return new ResponseEntity<>(addedOrderProduct, HttpStatus.CREATED);
@@ -429,7 +430,12 @@ public class MarketPlaceController {
     public ResponseEntity<List<OrderProduct>> getAllOrderProducts() {
         List<OrderProduct> orderProducts = marketPlaceService.getAllOrderProducts();
         return new ResponseEntity<>(orderProducts, HttpStatus.OK);
+    }*/
+    @PostMapping("/cart")
+    public ResponseEntity<?> addProductToCart(@RequestBody AddProductInCartDto addProductInCartDto) {
+        return marketPlaceService.addProductToCart(addProductInCartDto);
     }
+
     //////WishList
     @PostMapping("/WishList")
     public ResponseEntity<WishList> addWishList(@RequestBody WishList wishList) {
