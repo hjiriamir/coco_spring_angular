@@ -7,7 +7,7 @@ import tn.esprit.coco.entity.TripStop;
 import java.util.List;
 
 public interface ISubscriptionServices {
-    Subscription addSubscription(Long userId,  Subscription Subscription);
+    Subscription addSubscription(  Subscription Subscription);
     List<Subscription> getAllSubscription();
     Subscription getSubscription(Long iduser);
     void removeSub(Long idSub);

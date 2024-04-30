@@ -186,7 +186,7 @@ public class AuthController {
     }
 
 
-    @GetMapping("/users")
+    @GetMapping("/admin/users")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = iuserService.getAllUsers();

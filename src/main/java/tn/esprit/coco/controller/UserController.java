@@ -53,6 +53,7 @@ public class UserController {
         }
     }
 
+
     @GetMapping("getuserid/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = iuserService.getUserById(id);

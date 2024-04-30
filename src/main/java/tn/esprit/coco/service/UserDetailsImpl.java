@@ -41,6 +41,9 @@ public class UserDetailsImpl implements UserDetails {
                 .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
 
+        String pictureUrl = user.getProfilePicture() != null ? "/profile-picture/get/" + user.getProfilePicture().getIdPicture() : null;
+
+
         return UserDetailsImpl.builder()
                 .id(user.getId())
                 .username(user.getUsername())
@@ -50,7 +53,7 @@ public class UserDetailsImpl implements UserDetails {
                 .gender(user.getGender().name())
                 .address(user.getAddress())
                 .dateOfBirth(user.getDateOfBirth())
-                .pictureUrl(user.getPictureUrl())
+                .pictureUrl(pictureUrl)
                 .phoneNumber(user.getPhoneNumber())
                 .build();
     }

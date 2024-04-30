@@ -1,5 +1,6 @@
 package tn.esprit.coco.service;
 
+import com.twilio.base.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +15,7 @@ import tn.esprit.coco.repository.RoleRepository;
 import tn.esprit.coco.repository.UserRepository;
 import tn.esprit.coco.serviceImp.IUserService;
 
+import java.awt.print.Pageable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +39,8 @@ public class UserService implements IUserService {
     }
 
 
+
+
     ///////////// delete  user (admin) /////////////+
 
     public void deleteUser(Long userId, String requestingUserEmail) {
@@ -49,6 +53,8 @@ public class UserService implements IUserService {
             throw new RuntimeException("You are not authorized to delete this user.");
         }
     }
+
+
 
     @Override
     public void updateUserRole(String email, Set<Role> newRoles) {
@@ -89,6 +95,7 @@ public class UserService implements IUserService {
         user.setAddress(profileUpdateRequest.getAddress());
         user.setDateOfBirth(profileUpdateRequest.getDateOfBirth());
         user.setPictureUrl(profileUpdateRequest.getPictureUrl());
+        user.setProfilePicture(profileUpdateRequest.getProfilePicture());
 
         //
         if (profileUpdateRequest.getRoles() != null && !profileUpdateRequest.getRoles().isEmpty()) {
