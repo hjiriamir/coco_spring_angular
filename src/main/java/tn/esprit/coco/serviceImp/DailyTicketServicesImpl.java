@@ -47,9 +47,22 @@ public class DailyTicketServicesImpl implements ITicketServices {
                 .tripStops(tripStops)
                 .price(tripStop.getAmount())
                 .build();
+        String qrCodeData = generateQrCodeData(dailyTicket);
+        dailyTicket.setQrCodeData2(qrCodeData) ;
+
+
 
         return dailyTicketRepository.save(dailyTicket);
     }
+    private String generateQrCodeData(DailyTicket ticket) {
+        String qrCodeData = "Passenger: " + ticket.getUser().getUsername() + "\n"
+                + "Validity Date: " + ticket.getValidityDate() + "\n"
+                + "Price: " + ticket.getPrice();
+        return qrCodeData;
+    }
+
+
+
 
 
 

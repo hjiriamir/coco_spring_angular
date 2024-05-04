@@ -29,6 +29,7 @@ public class TicketController {
         }
     }
 
+
     @GetMapping("/get-all")
     public List<DailyTicket> getAllTickets(){
         return  ticketService.getAllDailyTicket();

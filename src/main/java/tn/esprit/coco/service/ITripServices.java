@@ -11,4 +11,5 @@ public interface ITripServices {
     Trip getTrip(Long idTrip);
     List<Trip> getAllTrip();
     void removeTrip(Long idTrip);
+
 }

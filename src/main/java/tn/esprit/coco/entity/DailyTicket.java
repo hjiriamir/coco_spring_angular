@@ -24,6 +24,8 @@ public class DailyTicket implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private TicketStatus status;
     private double price ;
+    private String qrCodeData2;
+    private  String qrCodeImageUrl2;
 
 
     private PaymentMethod paymentMethod;

@@ -4,6 +4,7 @@ package tn.esprit.coco.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.coco.entity.Stop;
 import tn.esprit.coco.entity.Trip;
 import tn.esprit.coco.entity.TripStop;
 import tn.esprit.coco.service.ITripServices;
@@ -33,6 +34,14 @@ public class TripStopController {
     @GetMapping("/get/{id}")
     public TripStop getTripStop(@PathVariable("id") Long idTripStop){
         return  tripStopServices.getTripStop(idTripStop);
+    }
+    @GetMapping("/getbyidtrip/{id}")
+    public List<TripStop> getTripStopByidTrip(@PathVariable("id") Long idTrip){
+        return  tripStopServices.getTripStopByidTrip(idTrip);
+    }
+    @GetMapping("/getbyidtripstop/{id}")
+    public Stop getStopByTripStop(@PathVariable("id") Long idTripStop){
+        return  tripStopServices.getStopByTripStop(idTripStop);
     }
     @GetMapping("/get-all")
     public List<TripStop> getAllTripStop(){
