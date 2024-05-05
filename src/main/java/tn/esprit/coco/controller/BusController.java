@@ -1,6 +1,8 @@
 package tn.esprit.coco.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.coco.entity.Bus;
 import tn.esprit.coco.service.IBusServices;
@@ -33,5 +35,14 @@ public class BusController {
     @DeleteMapping("/remove/{id}")
     public void removeBus(@PathVariable("id") Long idBus){
         busServices.removeBus(idBus);
+    }
+    @PostMapping("/assign-bus-to-trip")
+    public ResponseEntity<String> assignBusToTrip(@RequestParam("busId") Long busId, @RequestParam("tripId") Long tripId) {
+        try {
+            busServices.assignBusToTrip(busId, tripId);
+            return ResponseEntity.ok("Bus successfully assigned to trip.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to assign bus to trip: " + e.getMessage());
+        }
     }
 }

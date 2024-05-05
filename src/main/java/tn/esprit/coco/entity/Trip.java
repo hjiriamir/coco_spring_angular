@@ -19,7 +19,7 @@ public class Trip implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTrip;
-
+    private String name;
     private String departureLocation;
     private String arrivalLocation;
     private String estimatedDuration;

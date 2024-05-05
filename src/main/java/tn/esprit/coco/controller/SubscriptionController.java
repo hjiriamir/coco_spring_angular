@@ -39,9 +39,9 @@ public class SubscriptionController {
 
         return updatedSubscription;
     }
-    @GetMapping("/get/{id}")
-    public Subscription getSubscription(@PathVariable("id") Long iduser){
-        return  subscriptionService.getSubscription(iduser);
+    @GetMapping("/get")
+    public Subscription getSubscription(){
+        return  subscriptionService.getSubscription();
     }
 
 
