@@ -80,9 +80,8 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
     }
 
     @Override
-    public Subscription getSubscription(Long userId) {
+    public Subscription getSubscription() {
         User user = userDetailsService.getCurrentUser();
-        // Assuming that the subscription is associated with the user ID in the database
         return subscriptionRepository.findByUserId(user.getId());
     }
 

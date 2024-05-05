@@ -9,6 +9,6 @@ import java.util.List;
 public interface ISubscriptionServices {
     Subscription addSubscription(  Subscription Subscription);
     List<Subscription> getAllSubscription();
-    Subscription getSubscription(Long iduser);
+    Subscription getSubscription();
     void removeSub(Long idSub);
 }

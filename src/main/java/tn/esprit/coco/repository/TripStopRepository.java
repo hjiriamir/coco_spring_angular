@@ -2,6 +2,7 @@ package tn.esprit.coco.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import tn.esprit.coco.entity.Trip;
 import tn.esprit.coco.entity.TripStop;
 
 import java.util.List;
@@ -10,4 +11,5 @@ import java.util.List;
 public interface TripStopRepository extends JpaRepository<TripStop, Long> {
 
     List<TripStop> findAllByOrderByArrivalTime();
+    List<TripStop> findAllByTrip (Trip trip) ;
 }

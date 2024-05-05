@@ -1,5 +1,6 @@
 package tn.esprit.coco.service;
 
+import tn.esprit.coco.entity.Stop;
 import tn.esprit.coco.entity.Trip;
 import tn.esprit.coco.entity.TripStop;
 
@@ -12,6 +13,8 @@ public interface ITripstopServices {
      List<TripStop> getAllTripStop();
      void removeTripStop(Long idTripStop);
      public List<TripStop> tri();
+     List<TripStop> getTripStopByidTrip(Long idTrip);
+     Stop getStopByTripStop(Long idTripStop);
 
 
 }
