@@ -1,13 +1,10 @@
 package tn.esprit.coco.serviceImp;
 
-import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tn.esprit.coco.entity.Bus;
 import tn.esprit.coco.entity.Stop;
-import tn.esprit.coco.repository.BusRepository;
 import tn.esprit.coco.repository.StopRepository;
 import tn.esprit.coco.service.IStopServices;
 

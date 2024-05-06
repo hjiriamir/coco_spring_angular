@@ -7,12 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.coco.entity.Subscription;
 import tn.esprit.coco.entity.SubscriptionStatus;
-import tn.esprit.coco.entity.Trip;
 import tn.esprit.coco.entity.User;
-import tn.esprit.coco.repository.StopRepository;
 import tn.esprit.coco.repository.SubscriptionRepository;
 import tn.esprit.coco.repository.UserRepository;
-import tn.esprit.coco.service.IStopServices;
 import tn.esprit.coco.service.ISubscriptionServices;
 import tn.esprit.coco.service.UserDetailsServiceImpl;
 
@@ -80,9 +77,8 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
     }
 
     @Override
-    public Subscription getSubscription(Long userId) {
+    public Subscription getSubscription() {
         User user = userDetailsService.getCurrentUser();
-        // Assuming that the subscription is associated with the user ID in the database
         return subscriptionRepository.findByUserId(user.getId());
     }
 

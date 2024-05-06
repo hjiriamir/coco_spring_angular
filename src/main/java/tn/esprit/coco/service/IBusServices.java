@@ -10,4 +10,5 @@ public interface IBusServices {
     Bus getBus(Long idBus);
     List<Bus> getAllBus();
     void removeBus(Long idBus);
+     void assignBusToTrip(Long busId, Long tripId);
 }

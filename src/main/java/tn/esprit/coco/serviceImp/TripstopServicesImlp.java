@@ -3,7 +3,6 @@ package tn.esprit.coco.serviceImp;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.coco.entity.Stop;
 import tn.esprit.coco.entity.Trip;
@@ -11,7 +10,6 @@ import tn.esprit.coco.entity.TripStop;
 import tn.esprit.coco.repository.StopRepository;
 import tn.esprit.coco.repository.TripRepository;
 import tn.esprit.coco.repository.TripStopRepository;
-import tn.esprit.coco.service.ITripServices;
 import tn.esprit.coco.service.ITripstopServices;
 
 import java.util.List;
@@ -93,7 +91,28 @@ public class TripstopServicesImlp implements ITripstopServices {
         return tripStopRepository.findAllByOrderByArrivalTime();
     }
 
+    @Override
+    public List<TripStop> getTripStopByidTrip(Long idTrip) {
+        Optional<Trip> optionalTrip = tripRepository.findById(idTrip);
+        if (optionalTrip.isPresent()) {
+            Trip trip = optionalTrip.get();
+            return tripStopRepository.findAllByTrip(trip);
+        }
+        return null; }
+
+    @Override
+    public Stop getStopByTripStop(Long idTripStop) {
+        Optional<TripStop> optionalTripstop = tripStopRepository.findById(idTripStop);
+        if (optionalTripstop.isPresent()) {
+            TripStop tripstop = optionalTripstop.get();
+            return stopRepository.findByTripStops(tripstop);
+        }
+        return null; }
+
 
 }
+
+
+
 
 

@@ -6,12 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.coco.dto.RideDto;
 import tn.esprit.coco.dto.request.ChangePasswordRequest;
 import tn.esprit.coco.dto.request.ProfileUpdateRequest;
 import tn.esprit.coco.dto.response.MessageResponse;
 import tn.esprit.coco.entity.ERole;
+import tn.esprit.coco.entity.FavoriteList;
 import tn.esprit.coco.entity.Ride;
 import tn.esprit.coco.entity.User;
 import tn.esprit.coco.service.EmailService;
@@ -114,5 +116,20 @@ public class UserController {
         List<RideDto> rides = rideService.getAllRides();
         return ResponseEntity.ok(rides);
     }
+
+    /*hadil part start */
+    @GetMapping("/current")
+    private User getCurrent() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        String email = userDetails.getEmail();
+        return iuserService.getUserByEmail(email);
+    }
+    @GetMapping("/{userId}/favorites")
+    public ResponseEntity<FavoriteList> getUserFavoriteList(@PathVariable Long userId) {
+        FavoriteList favoriteList = userService.getFavoriteListByUserId(userId);
+        return ResponseEntity.ok(favoriteList);
+    }
+    /*hadil part end*/
 
 }

@@ -7,6 +7,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,10 +18,7 @@ import tn.esprit.coco.dto.UserRoleStatsDTO;
 import tn.esprit.coco.dto.request.ProfileUpdateRequest;
 import tn.esprit.coco.dto.request.SignupRequest;
 import tn.esprit.coco.dto.response.MessageResponse;
-import tn.esprit.coco.entity.ERole;
-import tn.esprit.coco.entity.Gender;
-import tn.esprit.coco.entity.Role;
-import tn.esprit.coco.entity.User;
+import tn.esprit.coco.entity.*;
 import tn.esprit.coco.repository.RoleRepository;
 import tn.esprit.coco.repository.UserRepository;
 import tn.esprit.coco.serviceImp.IUserService;
@@ -224,7 +222,17 @@ public class UserService implements IUserService {
     }
 
 
+    public Long getFavoriteListId(Authentication authentication) {
+        return null;
+    }
 
+    public FavoriteList getFavoriteListByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getFavoriteList();
+    }
+
+////////////////////////////////
 
 
 

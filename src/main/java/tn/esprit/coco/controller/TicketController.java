@@ -4,9 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.coco.entity.DailyTicket;
-
-import tn.esprit.coco.entity.Subscription;
-import tn.esprit.coco.entity.SubscriptionStatus;
 import tn.esprit.coco.entity.TicketStatus;
 import tn.esprit.coco.serviceImp.DailyTicketServicesImpl;
 
@@ -28,6 +25,7 @@ public class TicketController {
             return ResponseEntity.badRequest().body("Failed to add ticket.");
         }
     }
+
 
     @GetMapping("/get-all")
     public List<DailyTicket> getAllTickets(){

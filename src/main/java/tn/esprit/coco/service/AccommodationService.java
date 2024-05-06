@@ -28,6 +28,8 @@ public class AccommodationService {
     }
 
     public Accommodation saveAccommodation(Accommodation accommodation) {
+       /* System.out.println("SAVED ACCOMANDATION : " + accommodation);*/
+
         return accommodationRepository.save(accommodation);
     }
 
