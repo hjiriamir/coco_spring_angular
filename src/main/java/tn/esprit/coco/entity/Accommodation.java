@@ -36,10 +36,12 @@ public class Accommodation {
     private List<Room> rooms;
 
 
-    //père
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JsonIgnore
-    private Set<FavoriteList> favoritelists;
+    @JoinColumn(name = "favorite_list_id")
+    private List<FavoriteList>  favoriteList;
+    //père
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "accommodation_category",
@@ -51,9 +53,6 @@ public class Accommodation {
     @JsonIgnore
     private List<User> user;
 
-    @OneToMany(mappedBy = "accommodations")
-    @JsonIgnore
-    private List<Booking> bookings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accommodation")
     @JsonIgnore

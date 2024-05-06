@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.coco.entity.Category;
 import tn.esprit.coco.entity.SubCategory;
 import tn.esprit.coco.service.CategoryService;
 import tn.esprit.coco.service.SubCategoryService;
@@ -12,7 +13,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("*")
+//@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200",methods={RequestMethod.POST,RequestMethod.PUT, RequestMethod.DELETE,RequestMethod.GET,RequestMethod.PATCH})
 @RequestMapping("/api/subcategories")
 public class SubCategoryController {
 
@@ -38,7 +40,7 @@ public class SubCategoryController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /* hedy yserelha l 'ajout mel category deja mriglaaa
+    //hedy yserelha l 'ajout mel category deja mriglaaa
     @PostMapping("/addSubCategory")
     public ResponseEntity<SubCategory> addSubCategory(@RequestBody SubCategory subCategory) {
 
@@ -60,7 +62,7 @@ public class SubCategoryController {
 
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }*/
+    }
 
     @PutMapping("updateSubCategory/{id}")
     public ResponseEntity<SubCategory> updateSubCategory(@PathVariable Long id, @RequestBody SubCategory subCategory) {

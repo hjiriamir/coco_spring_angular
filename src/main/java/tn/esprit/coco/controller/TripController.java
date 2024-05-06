@@ -2,9 +2,7 @@ package tn.esprit.coco.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.coco.entity.Stop;
 import tn.esprit.coco.entity.Trip;
-import tn.esprit.coco.service.IStopServices;
 import tn.esprit.coco.service.ITripServices;
 
 import java.util.List;

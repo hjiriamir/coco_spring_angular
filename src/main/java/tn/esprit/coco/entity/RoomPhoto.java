@@ -31,6 +31,20 @@ public class RoomPhoto {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //@ToString
 //@AllArgsConstructor
 //@NoArgsConstructor

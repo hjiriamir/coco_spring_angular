@@ -1,25 +1,36 @@
 package tn.esprit.coco.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 @Entity
+@Table(name = "favorite_list")
+
 public class FavoriteList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Long accommodationID;
-    private String title;
-    private String description;
 
-    //fils
-    @ManyToMany(mappedBy="favoritelists", cascade = CascadeType.ALL)
-    private Set<Accommodation> accommodations;
+    private Long id;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    private Long accommodationID;
+
+
+    @ManyToMany (mappedBy = "favoriteList", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @Builder.Default
+    private List<Accommodation> accommodations = new ArrayList<>();
 }

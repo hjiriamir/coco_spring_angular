@@ -99,6 +99,17 @@ public class User {
     private Set<Accommodation> accommodations;
     @OneToMany(mappedBy ="user")
     private List<Booking> bookings;
+    @JsonIgnore
+    @OneToOne(mappedBy="user")
+    private FavoriteList favoritelists;
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Sold solds;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JoinColumn(name = "favorite_list_id")
+    private FavoriteList favoriteList;
 
 //// ramzi
 

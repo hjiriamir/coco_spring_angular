@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.coco.entity.*;
 import tn.esprit.coco.repository.DailyTicketRepository;
-import tn.esprit.coco.repository.SubscriptionRepository;
 import tn.esprit.coco.repository.TripStopRepository;
-import tn.esprit.coco.repository.UserRepository;
-import tn.esprit.coco.service.ISubscriptionServices;
 import tn.esprit.coco.service.ITicketServices;
 import tn.esprit.coco.service.UserDetailsServiceImpl;
 
@@ -47,9 +44,22 @@ public class DailyTicketServicesImpl implements ITicketServices {
                 .tripStops(tripStops)
                 .price(tripStop.getAmount())
                 .build();
+        String qrCodeData = generateQrCodeData(dailyTicket);
+        dailyTicket.setQrCodeData2(qrCodeData) ;
+
+
 
         return dailyTicketRepository.save(dailyTicket);
     }
+    private String generateQrCodeData(DailyTicket ticket) {
+        String qrCodeData = "Passenger: " + ticket.getUser().getUsername() + "\n"
+                + "Validity Date: " + ticket.getValidityDate() + "\n"
+                + "Price: " + ticket.getPrice();
+        return qrCodeData;
+    }
+
+
+
 
 
 

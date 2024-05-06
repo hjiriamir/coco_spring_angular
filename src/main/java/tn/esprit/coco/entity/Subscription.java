@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -18,6 +17,8 @@ public class Subscription implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+
 
     //@Enumerated(value = EnumType.STRING)
     //private DurationPlan durationPlan;
