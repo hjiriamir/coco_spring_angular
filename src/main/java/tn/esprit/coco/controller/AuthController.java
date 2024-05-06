@@ -1,12 +1,15 @@
 package tn.esprit.coco.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.coco.dto.request.LoginRequest;
@@ -28,11 +31,9 @@ import tn.esprit.coco.service.UserService;
 import tn.esprit.coco.serviceImp.IUserService;
 import tn.esprit.coco.utils.JwtUtils;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
-
+@Slf4j
 @CrossOrigin("*")
 @RestController
 public class AuthController {
@@ -52,6 +53,8 @@ public class AuthController {
     private JwtUtils jwtUtils;
     @Autowired
     IUserService iuserService;
+    @Autowired
+    UserService userService;
     @Autowired
     private EmailService emailService;
     @Autowired
@@ -98,6 +101,11 @@ public class AuthController {
             } else {
                 strRoles.forEach(role -> {
                     switch (role.toUpperCase()) {
+                        case "USER":
+                            Role userRole = roleRepository.findByName(ERole.USER)
+                                    .orElseThrow(() -> new RuntimeException("Error: Role USER not found."));
+                            roles.add(userRole);
+                            break;
                         case "DRIVER":
                             Role driverRole = roleRepository.findByName(ERole.DRIVER)
                                     .orElseThrow(() -> new RuntimeException("Error: Role DRIVER not found."));
@@ -119,7 +127,7 @@ public class AuthController {
                             roles.add(roomSeekerRole);
                             break;
                         default:
-                            // This case can be used for validation or default role assignment
+
                             throw new RuntimeException("Error: Invalid role specified.");
                     }
                 });
@@ -155,6 +163,7 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
+
 
 
     @PostMapping("/auth/login")
@@ -241,6 +250,33 @@ public class AuthController {
         return ResponseEntity.ok(users);
     }
 ///////////////////////admin yaamel update l role mtaa users ////////////////////////////
+
+
+    @PostMapping("/forgetpassword")
+    public HashMap<String,String> forgetPassword(@RequestParam String email){
+        return userService.forgetPassword(email);
+    }
+
+    @PostMapping("/resetPassword/{passwordResetToken}")
+    public ResponseEntity<?> resetPassword(@PathVariable String passwordResetToken, @RequestBody Map<String, String> payload) {
+        try {
+            String newPassword = payload.get("newPassword");
+            User user = userRepository.findByPasswordResetToken(passwordResetToken)
+                    .orElseThrow(() -> new IllegalStateException("Token invalid or expired."));
+
+            user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+            user.setPasswordResetToken(null); // Invalidate the token to prevent reuse
+            userRepository.save(user);
+
+            return ResponseEntity.ok(Map.of("message", "Password successfully reset"));
+        } catch (IllegalStateException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            log.error("Error processing password reset", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Internal Server Error"));
+        }
+    }
+
 
 
 

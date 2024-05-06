@@ -33,8 +33,10 @@ public class Ride {
     private List<Car> cars;
 
     @ManyToMany
+    @JsonIgnore
     private List<User> passengers;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "Idride")
     private User driver;
     @OneToMany(mappedBy = "rideR")

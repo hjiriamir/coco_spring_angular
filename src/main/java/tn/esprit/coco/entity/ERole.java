@@ -7,6 +7,6 @@ public enum ERole {
     PASSENGER,
     HOST,
     ROOMSEEKER,
-    DELIVERY,
+
     EXTERNAL_USER
 }

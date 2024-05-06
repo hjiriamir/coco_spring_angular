@@ -5,12 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import tn.esprit.coco.configuration.BadWordFilter;
 import tn.esprit.coco.dto.ReclamationDto;
 import tn.esprit.coco.entity.*;
-import tn.esprit.coco.repository.ReclamationRepository;
-import tn.esprit.coco.repository.ResponseRepository;
-import tn.esprit.coco.repository.RideRepository;
-import tn.esprit.coco.repository.UserRepository;
+import tn.esprit.coco.repository.*;
 
 import java.util.Date;
 import java.util.List;
@@ -30,12 +28,17 @@ public class ReclamationService {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private  NotificationService notificationService;
+
 
     @Transactional
     public Reclamation addReclamation(Long rideId, String title, String description, TypeReclamation type) {
         User currentUser = userDetailsService.getCurrentUser();
         Ride ride = rideRepository.findById(rideId)
                 .orElseThrow(() -> new RuntimeException("Ride not found with id: " + rideId));
+
+        description = BadWordFilter.filterText(description);
 
         Reclamation reclamation = new Reclamation();
         reclamation.setTitle(title);
@@ -46,8 +49,14 @@ public class ReclamationService {
         reclamation.setState(StateReclamation.PENDING);
         reclamation.setDate(new Date());
 
+        Reclamation savedReclamation = reclamationRepository.save(reclamation);
 
-        return reclamationRepository.save(reclamation);
+        // Send notification after reclamation is saved
+        String notificationMessage = "New reclamation created: " + reclamation.getTitle() + " by " + currentUser.getUsername();
+        notificationService.sendReclamationNotification(notificationMessage);
+
+        return savedReclamation;
+        //return reclamationRepository.save(reclamation);
     }
 
 ///////////////////////////////

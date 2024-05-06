@@ -18,7 +18,8 @@ public class ProfileUpdateRequest {
     private LocalDate dateOfBirth;
     private String pictureUrl;
     private ProfilePicture profilePicture;
-    private Set<String> roles;
+    private String phoneNumber;
+
 
 
 }

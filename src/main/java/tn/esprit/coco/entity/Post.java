@@ -30,6 +30,7 @@ public class Post {
     private Instant updateDate;
 
     @ManyToOne
+
     @JoinColumn(name = "user_id")
     private User user;
 
