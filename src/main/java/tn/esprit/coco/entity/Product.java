@@ -35,8 +35,9 @@ public class Product {
     @ManyToOne
     User user;
     @ManyToOne
-    OrderProduct orderproduct;
-    @JsonIgnore
+    @JoinColumn(name = "order_id") // Nom de la colonne faisant référence à l'ID de la commande
+    private OrderProduct orderProduct;
+
     @OneToMany(mappedBy="product", cascade = CascadeType.ALL)
     private List<PictureProduct> pictureProducts;
 

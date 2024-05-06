@@ -27,6 +27,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         return UserDetailsImpl.build(user);
     }
 
+
+
     public User getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.getPrincipal() instanceof UserDetailsImpl) {
@@ -36,8 +38,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         throw new IllegalStateException("No authenticated user found");
     }
-
-
 
 }
 

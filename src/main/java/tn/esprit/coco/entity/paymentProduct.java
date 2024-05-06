@@ -19,7 +19,7 @@ public class paymentProduct {
     @Enumerated(EnumType.STRING)
     private Status status;
     private float Total;
-    @JsonIgnore
+   /* @JsonIgnore
     @OneToOne(mappedBy="paymentproduct")
-    private OrderProduct orderproduct;
+    private OrderProduct orderproduct;*/
 }

@@ -1,6 +1,11 @@
 package tn.esprit.coco.service;
 
 import tn.esprit.coco.entity.Stop;
+
+
+import tn.esprit.coco.entity.Trip;
+
+
 import tn.esprit.coco.entity.TripStop;
 
 import java.util.List;
