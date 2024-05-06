@@ -23,6 +23,8 @@ public class DailyTicket implements Serializable {
     private LocalDate validityDate;
     @Enumerated(value = EnumType.STRING)
     private TicketStatus status;
+    private double price ;
+
 
     private PaymentMethod paymentMethod;
 

@@ -56,6 +56,7 @@ public class WebSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedHandler))
                 .authorizeHttpRequests((authz) -> authz
+
                         .requestMatchers("/auth/signup", "/auth/login", "/test/**","/user/**", "/stats/**","/profile-picture/**",
                                 "/reclamations/**","/responses/**",
                                 "/addRide","/addCar","/addImage","/subscriptions/**",
@@ -63,6 +64,10 @@ public class WebSecurityConfig {
                                 "/AddProduct","/**").permitAll()
                         .requestMatchers("/user/change-password").authenticated()
                         .requestMatchers("/admin/users/**","/admin/search","reclamations/**","/responses/**").hasAuthority("ADMIN")
+
+                        .requestMatchers( "/**").permitAll()
+                        .requestMatchers("/user/change-password").authenticated()
+
 
 
                         .anyRequest().authenticated()
