@@ -2,7 +2,11 @@ package tn.esprit.coco.service;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import tn.esprit.coco.dto.AddProductInCartDto;
 import tn.esprit.coco.entity.*;
 import tn.esprit.coco.repository.*;
 import tn.esprit.coco.serviceImp.MarketPlaceImpl;
@@ -39,7 +43,7 @@ public class MarketPlaceService implements MarketPlaceImpl {
     private FavoriteProductRepository favoriteProductRepository;
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired CartItemsRepository cartItemsRepository;
 
     @Override
     public CategoryProduct createCategoryProduct(CategoryProduct categoryProduct) {
@@ -65,21 +69,21 @@ public class MarketPlaceService implements MarketPlaceImpl {
         existingCategoryProduct.setSubCategorys(categoryProduct.getSubCategorys());
         return categoryProductRepository.save(existingCategoryProduct);
     }*/
-   public CategoryProduct updateCategoryProduct(Long categoryId, CategoryProduct updatedCategoryProduct) {
+    public CategoryProduct updateCategoryProduct(Long categoryId, CategoryProduct updatedCategoryProduct) {
 
-       CategoryProduct existingCategoryProduct = categoryProductRepository.findById(categoryId)
-               .orElseThrow(() -> new RuntimeException("CategoryProduct not found with id: " + categoryId)); //Find the existing category by its ID
+        CategoryProduct existingCategoryProduct = categoryProductRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("CategoryProduct not found with id: " + categoryId)); //Find the existing category by its ID
 
 
-       existingCategoryProduct.setCategoryName(updatedCategoryProduct.getCategoryName());//new values
+        existingCategoryProduct.setCategoryName(updatedCategoryProduct.getCategoryName());//new values
 
-       return categoryProductRepository.save(existingCategoryProduct);
-   }
+        return categoryProductRepository.save(existingCategoryProduct);
+    }
 
     @Override
     public void deleteCategoryProduct(Long idCategory) {
 
-      // categoryProductRepository.deleteById(idCategory);
+        // categoryProductRepository.deleteById(idCategory);
         CategoryProduct categoryProduct = getCategoryProductById(idCategory);
         List<SubCategoryProduct> subCategoryProducts = categoryProduct.getSubCategorys();
         for (SubCategoryProduct subCategoryProduct : subCategoryProducts) {
@@ -142,7 +146,7 @@ public class MarketPlaceService implements MarketPlaceImpl {
         }
         subCategoryProductRepository.deleteById(idSubCategory);
     }
-/////// affect subcategory to category
+    /////// affect subcategory to category
     @Override
     public void addSubcategoryToCategory(Long idCategory, Long idSubCategory) {
         CategoryProduct category = categoryProductRepository.findById(idCategory)
@@ -222,6 +226,7 @@ public class MarketPlaceService implements MarketPlaceImpl {
         return productRepository.save(existingProduct);
 
     }*/
+
     public Product updateProduct(Long productId, Product updatedProduct) {
         Product existingProduct = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + productId));
@@ -264,8 +269,8 @@ public class MarketPlaceService implements MarketPlaceImpl {
         Product product = getProductById(idProduct);
         List<PictureProduct> pictureProducts = product.getPictureProducts();
         for (PictureProduct pictureProduct : pictureProducts) {
-           // deletePictureProduct(pictureProduct.getIdpicture());
-           // deletePictureProduct(pictureProduct.getIdpicture());
+            // deletePictureProduct(pictureProduct.getIdpicture());
+            // deletePictureProduct(pictureProduct.getIdpicture());
         }
         productRepository.deleteById(idProduct);
     }
@@ -273,7 +278,7 @@ public class MarketPlaceService implements MarketPlaceImpl {
     public Product getProductById(Long idProduct) {
         return productRepository.findById(idProduct).orElseThrow(() -> new RuntimeException("Product not found with id " + idProduct));
     }
-////////////////////PRODUCTTOSUBCATEGORY
+    ////////////////////PRODUCTTOSUBCATEGORY
     @Override
     public void assignProductToSubCategory(Long idProduct, Long idSubCategory) {
         Product product = productRepository.findById(idProduct)
@@ -296,7 +301,7 @@ public class MarketPlaceService implements MarketPlaceImpl {
     public List<Product> getProductsSortedByPriceDesc() {
         return productRepository.findAllByOrderByPriceDesc();
     }
-/////////////////////////////
+    /////////////////////////////
    /* @Override
     public void addToFavorites(User user, Product product) {
         if (!isProductInFavorites(user, product)) {
@@ -306,43 +311,43 @@ public class MarketPlaceService implements MarketPlaceImpl {
             favoriteProductRepository.save(favoriteProduct);
         }
     }*/
-@Override
-public void addToFavorites(Product product) {
-    // Récupérer l'utilisateur avec l'ID 1
-    User user = userService.getUserById(1L);
-    if (user == null) {
-        // Gérer le cas où l'utilisateur avec l'ID 1 n'est pas trouvé
-        // Peut-être lancer une exception ou enregistrer un message d'erreur
-        return;
-    }
-
-    if (!isProductInFavorites( product)) {
-        List<Product> productList = new ArrayList<>();
-        productList.add(product);
-        FavoriteProduct favoriteProduct = new FavoriteProduct(user, productList);
-        favoriteProductRepository.save(favoriteProduct);
-    }
-}
-
-
-   /* @Override
-    public void removeFromFavorites(User user, Product product) {
-        FavoriteProduct favoriteProduct = favoriteProductRepository.findByUserAndProducts(user, product);
-        if (favoriteProduct != null) {
-            favoriteProductRepository.delete(favoriteProduct);
+    @Override
+    public void addToFavorites(Product product) {
+        // Récupérer l'utilisateur avec l'ID 1
+        User user = userService.getUserById(1L);
+        if (user == null) {
+            // Gérer le cas où l'utilisateur avec l'ID 1 n'est pas trouvé
+            // Peut-être lancer une exception ou enregistrer un message d'erreur
+            return;
         }
-    }*/
-   @Override
-   public void removeFromFavorites(Product product) {
-       Long id = 1L; // Définition de l'ID utilisateur statique à 1
-       User user = userRepository.findById(id).orElse(null);
-       if (user != null) {
-           FavoriteProduct favoriteProduct = favoriteProductRepository.findByUserAndProducts(user, product);
-           if (favoriteProduct != null) {
-               favoriteProductRepository.delete(favoriteProduct);
-           }
-       }
-   }
+
+        if (!isProductInFavorites( product)) {
+            List<Product> productList = new ArrayList<>();
+            productList.add(product);
+            FavoriteProduct favoriteProduct = new FavoriteProduct(user, productList);
+            favoriteProductRepository.save(favoriteProduct);
+        }
+    }
+
+
+    /* @Override
+     public void removeFromFavorites(User user, Product product) {
+         FavoriteProduct favoriteProduct = favoriteProductRepository.findByUserAndProducts(user, product);
+         if (favoriteProduct != null) {
+             favoriteProductRepository.delete(favoriteProduct);
+         }
+     }*/
+    @Override
+    public void removeFromFavorites(Product product) {
+        Long id = 1L; // Définition de l'ID utilisateur statique à 1
+        User user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            FavoriteProduct favoriteProduct = favoriteProductRepository.findByUserAndProducts(user, product);
+            if (favoriteProduct != null) {
+                favoriteProductRepository.delete(favoriteProduct);
+            }
+        }
+    }
 
 
     @Override
@@ -356,22 +361,22 @@ public void addToFavorites(Product product) {
     }
 
 
-   /* @Override
-    public boolean isProductInFavorites(User user, Product product) {
-        FavoriteProduct favoriteProduct = favoriteProductRepository.findByUserAndProducts(user, product);
+    /* @Override
+     public boolean isProductInFavorites(User user, Product product) {
+         FavoriteProduct favoriteProduct = favoriteProductRepository.findByUserAndProducts(user, product);
+         return favoriteProduct != null;
+     }*/
+    @Override
+    public boolean isProductInFavorites(Product product) {
+        Long id = 1L; // Définir l'ID de l'utilisateur statiquement
+        User staticUser = userService.getUserById(id);
+        if (staticUser == null) {
+            // Gérer le cas où l'utilisateur statique n'est pas trouvé
+            return false;
+        }
+        FavoriteProduct favoriteProduct = favoriteProductRepository.findByUserAndProducts(staticUser, product);
         return favoriteProduct != null;
-    }*/
-   @Override
-   public boolean isProductInFavorites(Product product) {
-       Long id = 1L; // Définir l'ID de l'utilisateur statiquement
-       User staticUser = userService.getUserById(id);
-       if (staticUser == null) {
-           // Gérer le cas où l'utilisateur statique n'est pas trouvé
-           return false;
-       }
-       FavoriteProduct favoriteProduct = favoriteProductRepository.findByUserAndProducts(staticUser, product);
-       return favoriteProduct != null;
-   }
+    }
 
 
     @Override
@@ -553,32 +558,32 @@ public void addToFavorites(Product product) {
         }
     }
 
+////////////////////////////////////////////////
+    /* @Transactional
+     @Override
+     public OrderProduct addOrderProduct(OrderProduct orderProduct) {
+         return orderProductRepository.save(orderProduct);
+     }
 
-    @Transactional
-    @Override
-    public OrderProduct addOrderProduct(OrderProduct orderProduct) {
-        return orderProductRepository.save(orderProduct);
-    }
-
-    @Override
-    @Transactional
-    /*public OrderProduct updateOrderProduct(Long idOrder, OrderProduct orderProduct) {
-        OrderProduct existingOrderProduct = getOrderProductById(idOrder);
-        existingOrderProduct.setQuantity(orderProduct.getQuantity());
-        existingOrderProduct.setAmount(orderProduct.getAmount());
-        existingOrderProduct.setAddress(orderProduct.getAddress());
-        existingOrderProduct.setPostcode(orderProduct.getPostcode());
-        existingOrderProduct.setCity(orderProduct.getCity());
-        existingOrderProduct.setNotes(orderProduct.getNotes());
-        PaymentProduct paymentProduct = paymentProductService.getPaymentProductById(orderProduct.getPaymentproduct().getIdPayment());
-        existingOrderProduct.setPaymentproduct(paymentProduct);
-        List<Product> products = orderProduct.getProducts();
-        for (Product product : products) {
-            product.setOrderproduct(existingOrderProduct);
-            updateProduct(product.getIdProduct(), product);
-        }
-        return orderProductRepository.save(existingOrderProduct);
-    }*/
+     @Override
+     @Transactional
+     public OrderProduct updateOrderProduct(Long idOrder, OrderProduct orderProduct) {
+         OrderProduct existingOrderProduct = getOrderProductById(idOrder);
+         existingOrderProduct.setQuantity(orderProduct.getQuantity());
+         existingOrderProduct.setAmount(orderProduct.getAmount());
+         existingOrderProduct.setAddress(orderProduct.getAddress());
+         existingOrderProduct.setPostcode(orderProduct.getPostcode());
+         existingOrderProduct.setCity(orderProduct.getCity());
+         existingOrderProduct.setNotes(orderProduct.getNotes());
+         PaymentProduct paymentProduct = paymentProductService.getPaymentProductById(orderProduct.getPaymentproduct().getIdPayment());
+         existingOrderProduct.setPaymentproduct(paymentProduct);
+         List<Product> products = orderProduct.getProducts();
+         for (Product product : products) {
+             product.setOrderproduct(existingOrderProduct);
+             updateProduct(product.getIdProduct(), product);
+         }
+         return orderProductRepository.save(existingOrderProduct);
+     }*/
   /* public OrderProduct updateOrderProduct(Long orderId, OrderProduct updatedOrderProduct) {
 
        OrderProduct existingOrderProduct = orderProductRepository.findById(orderId)
@@ -593,7 +598,7 @@ public void addToFavorites(Product product) {
 
        return orderProductRepository.save(existingOrderProduct);
    }*/
-    public OrderProduct updateOrderProduct(Long orderId, OrderProduct updatedOrderProduct) {
+   /* public OrderProduct updateOrderProduct(Long orderId, OrderProduct updatedOrderProduct) {
         OrderProduct existingOrderProduct = orderProductRepository.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order product not found with id: " + orderId));
 
@@ -641,7 +646,87 @@ public void addToFavorites(Product product) {
     @Override
     public OrderProduct getOrderProductById(Long idOrder) {
         return orderProductRepository.findById(idOrder).orElseThrow(() -> new RuntimeException("OrderProduct not found with id " + idOrder));
-    }
+    }*/
+
+    //////////second try order//////////////
+    /* fl user OrderProduct order = new OrderProduct();
+    order.setAmount(0L);
+    order.setTotalAmount(0L);
+    order.setDiscount(0L);
+    order.setUser(0L);
+    order.setOrderStatus(OrderStatus.Pending);
+    orderProductRepository.save(order);*/
+   /* @Override
+    @Transactional
+    public ResponseEntity<?> addProductToCart(AddProductInCartDto addProductInCartDto){
+        OrderProduct activeOrder = orderProductRepository.findByUser_IdAndOrderStatus(addProductInCartDto.getId(),OrderStatus.Pending);
+        Optional<CartItems> optionalCartItems = cartItemsRepository.findByProduct_IdProductAndOrder_IdOrderAndUser_Id
+                (addProductInCartDto.getIdProduct(),activeOrder.getIdOrder(),addProductInCartDto.getId());
+        if(optionalCartItems.isPresent()){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        }else {
+            Optional<Product> optionalProduct = productRepository.findById(addProductInCartDto.getIdProduct());
+            Optional<User> optionalUser = userRepository.findById(addProductInCartDto.getIdProduct());
+            if (optionalProduct.isPresent() && optionalUser.isPresent()){
+                CartItems cart = new CartItems();
+                cart.setProduct(optionalProduct.get());
+                cart.setPrice((long) optionalProduct.get().getPrice());
+                cart.setQuantity(1L);
+                cart.setUser(optionalUser.get());
+                cart.setOrder(activeOrder);
+                CartItems updateCart= cartItemsRepository.save(cart);
+                activeOrder.setTotalAmount(activeOrder.getTotalAmount() + cart.getPrice());
+                activeOrder.setTotalAmount(activeOrder.getAmount() + cart.getPrice());
+                activeOrder.getCartItems().add(cart);
+                orderProductRepository.save(activeOrder);
+                return ResponseEntity.status(HttpStatus.CREATED).body(cart);
+
+            }else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User or Product not found");
+            }
+        }*/
+        @Override
+        @Transactional
+        public ResponseEntity<?> addProductToCart(AddProductInCartDto addProductInCartDto){
+            // Get the current authenticated user
+            UserDetailsServiceImpl userDetailsService = new UserDetailsServiceImpl();
+            User currentUser = userDetailsService.getCurrentUser();
+
+            OrderProduct activeOrder = orderProductRepository.findByUser_IdAndOrderStatus(currentUser.getId(), OrderStatus.Pending);
+            Optional<CartItems> optionalCartItems = cartItemsRepository.findByProduct_IdProductAndOrder_IdOrderAndUser_Id
+                    (addProductInCartDto.getIdProduct(), activeOrder.getIdOrder(), currentUser.getId());
+            if(optionalCartItems.isPresent()){
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+            }else {
+                Optional<Product> optionalProduct = productRepository.findById(addProductInCartDto.getIdProduct());
+                if (optionalProduct.isPresent()){
+                    CartItems cart = new CartItems();
+                    cart.setProduct(optionalProduct.get());
+                    cart.setPrice((long) optionalProduct.get().getPrice());
+                    cart.setQuantity(1L);
+                    cart.setUser(currentUser);
+                    cart.setOrder(activeOrder);
+                    CartItems updateCart= cartItemsRepository.save(cart);
+                    activeOrder.setTotalAmount(activeOrder.getTotalAmount() + cart.getPrice());
+                    activeOrder.setTotalAmount(activeOrder.getAmount() + cart.getPrice());
+                    activeOrder.getCartItems().add(cart);
+                    orderProductRepository.save(activeOrder);
+                    return ResponseEntity.status(HttpStatus.CREATED).body(cart);
+                }else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
     //////////////////WISHLIST
     @Override
     @Transactional

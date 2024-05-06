@@ -4,7 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+
+import java.util.Date;
+
 import java.util.HashSet;
+
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +32,18 @@ public class Ride {
     private boolean Smoking_Vehicle;
     private String preference;
     private boolean AvoidTolls;
+    private String TempsEstime;
+    private String Distance;
+    //image
+    private Date DateAddedImage;
+    private String timeImage;
+    private String FormatImage;
+    private String PathImage;
+    private String DescriptionImage;
+    //car
+    private String ModelCar;
+    private Boolean ComfortCar;
+    private String carburant;
     @JsonIgnore
     @OneToMany(mappedBy = "ride")
     private List<Car> cars;
