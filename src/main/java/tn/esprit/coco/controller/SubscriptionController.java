@@ -3,10 +3,8 @@ package tn.esprit.coco.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.coco.entity.Bus;
 import tn.esprit.coco.entity.Subscription;
 import tn.esprit.coco.entity.SubscriptionStatus;
-import tn.esprit.coco.entity.Trip;
 import tn.esprit.coco.serviceImp.SubscriptionServicesImpl;
 
 import java.util.List;

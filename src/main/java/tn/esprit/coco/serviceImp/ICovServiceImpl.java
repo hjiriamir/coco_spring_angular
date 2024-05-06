@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import tn.esprit.coco.entity.*;
 import tn.esprit.coco.repository.*;
 import tn.esprit.coco.service.ICovService;
+import tn.esprit.coco.service.UserDetailsServiceImpl;
 
 import java.util.*;
 
@@ -32,6 +33,8 @@ public class ICovServiceImpl implements ICovService {
     private SecurityRepository securityRepository;
     @Autowired
     private UserRepository userRepository;
+
+
     @Override
     public Ride addRide(Ride ride) {
         return rideRepository.save(ride);

@@ -34,4 +34,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT r.name, COUNT(u) FROM User u JOIN u.roles r GROUP BY r.name")
     List<Object[]> countUsersByRole();
 
+    Optional<User> findByPasswordResetToken(String passwordResetToken);
+
+
+
+
 }

@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.coco.entity.*;
 import tn.esprit.coco.repository.DailyTicketRepository;
-import tn.esprit.coco.repository.SubscriptionRepository;
 import tn.esprit.coco.repository.TripStopRepository;
-import tn.esprit.coco.repository.UserRepository;
-import tn.esprit.coco.service.ISubscriptionServices;
 import tn.esprit.coco.service.ITicketServices;
 import tn.esprit.coco.service.UserDetailsServiceImpl;
 

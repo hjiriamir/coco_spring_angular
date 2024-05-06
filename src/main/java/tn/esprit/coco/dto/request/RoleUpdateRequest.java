@@ -10,7 +10,5 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 public class RoleUpdateRequest {
-    private String email;
     private String roleName;
-    private Set<String> roles;
 }

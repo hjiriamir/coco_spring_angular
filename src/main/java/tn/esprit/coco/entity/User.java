@@ -44,9 +44,13 @@ public class User {
     @Column(name = "phone_number")
     private String phoneNumber;
     private String pictureUrl;
+
+    @Column(nullable = true)
+    private String passwordResetToken;
+
+
     @OneToOne
     private ProfilePicture profilePicture;
-
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     @JoinTable(
@@ -95,15 +99,30 @@ public class User {
     private Set<Accommodation> accommodations;
     @OneToMany(mappedBy ="user")
     private List<Booking> bookings;
+    @JsonIgnore
+    @OneToOne(mappedBy="user")
+    private FavoriteList favoritelists;
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Sold solds;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @JoinColumn(name = "favorite_list_id")
+    private FavoriteList favoriteList;
 
 //// ramzi
+
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Post> posts;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Comment> comments;
 //verifier
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<CommentLike> commentLikes;
 
     @ManyToMany
