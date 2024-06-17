@@ -4,7 +4,7 @@
 
 The CoCo app is a comprehensive platform designed to enhance the ESPRIT student experience by facilitating carpooling, room sharing, marketplace transactions, and more, all within a single, user-friendly application. This project aims to address common logistical challenges faced by students, such as finding affordable transportation and accommodation, by leveraging a dynamic role-based system that adapts to users' varying needs.
 
-## Features 🚀
+## Features (new ) 🚀
 
 - **Dynamic Role Assignment** 🔄: Users can assume multiple roles based on their activities.
 - **Carpooling** 🚗: Share rides, reducing travel costs and environmental impact.
